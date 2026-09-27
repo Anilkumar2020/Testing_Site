@@ -1,0 +1,16 @@
+[Unit]
+Description=URL Tester
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=urltester
+WorkingDirectory=/opt/url-tester/server
+EnvironmentFile=-/opt/url-tester/.env
+Environment=HOME=/var/lib/urltester
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

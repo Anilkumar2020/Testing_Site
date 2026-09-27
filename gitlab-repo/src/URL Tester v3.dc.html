@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Anil's 1st AI project · URL Testing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <style>
+    body { margin: 0; background: #F8FAFC; font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0F172A; }
+    a { color: #5B5BD6; text-decoration: none; }
+    a:hover { color: #4343B8; }
+    select option { color: #0F172A; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#5B5BD6"></rect><circle cx="46" cy="46" r="18" fill="none" stroke="#fff" stroke-width="6"></circle><path d="M59 59l14 14" stroke="#fff" stroke-width="6" stroke-linecap="round"></path></svg></template>
+
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #F8FAFC;">
+
+  <aside style="flex: 1 0 240px; max-width: 100%; background: #FFFFFF; border-right: 1px solid #E5E7EB; color: #0F172A;">
+    <div style="position: sticky; top: 0; padding: 24px 16px; display: flex; flex-direction: column; gap: 28px;">
+      <div style="padding: 0 8px; display: flex; flex-direction: column; gap: 4px;">
+        <span style="font-weight: 600; font-size: 18px; letter-spacing: -0.01em;">Anil's 1st <span style="color: #5B5BD6;">AI</span> project</span>
+        <span style="font-size: 12px; color: #64748B;">Site Check · {{ totalTests }} tests</span>
+      </div>
+      <nav style="display: flex; flex-direction: column; gap: 4px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
+          <button onClick="{{ n.go }}" style="display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 12px; border: none; border-radius: 8px; background: {{ n.bg }}; color: {{ n.fg }}; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; text-align: left;" style-hover="background: #F1F5F9;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{ n.iconColor }}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ n.icon }}"></path></svg>
+            <span>{{ n.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+      <div style="padding: 16px 8px 0; border-top: 1px solid #E5E7EB; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #64748B;">DATA SOURCE</span>
+        <div style="display: flex; padding: 3px; border-radius: 8px; background: #F1F5F9; gap: 3px;">
+          <sc-for list="{{ sourceOpts }}" as="o" hint-placeholder-count="2">
+            <button onClick="{{ o.select }}" style="flex: 1; height: 32px; border: none; border-radius: 6px; background: {{ o.bg }}; color: {{ o.fg }}; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer;">{{ o.label }}</button>
+          </sc-for>
+        </div>
+        <span style="font-size: 12px; color: #64748B; line-height: 1.45;">{{ sourceNote }}</span>
+      </div>
+    </div>
+  </aside>
+
+  <main style="flex: 999 1 0; min-width: 60%; padding: 40px clamp(16px, 3vw, 40px) 64px; box-sizing: border-box;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+
+      <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="Dashboard" style="display: flex; flex-direction: column; gap: 28px;">
+          <div data-screen-label="Home Hero" style="position: relative; overflow: hidden; border-radius: 20px; min-height: 280px; background: #FFFFFF; border: 1px solid #E5E7EB; display: flex; align-items: flex-end;">
+            <div style="position: absolute; width: 560px; height: 440px; right: -80px; top: -140px; background: radial-gradient(closest-side, rgba(129,140,248,0.55), transparent); filter: blur(24px);"></div>
+            <div style="position: absolute; width: 480px; height: 400px; right: 260px; top: 60px; background: radial-gradient(closest-side, rgba(96,165,250,0.40), transparent); filter: blur(28px);"></div>
+            <div style="position: absolute; width: 360px; height: 300px; right: 40px; bottom: -160px; background: radial-gradient(closest-side, rgba(192,132,252,0.35), transparent); filter: blur(24px);"></div>
+            <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(15,23,42,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.05) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask-image: radial-gradient(ellipse at 75% 40%, #000 15%, transparent 72%); mask-image: radial-gradient(ellipse at 75% 40%, #000 15%, transparent 72%);"></div>
+            <svg viewBox="0 0 600 300" preserveAspectRatio="xMaxYMid slice" style="position: absolute; right: 0; top: 0; height: 100%; width: min(46%, 540px);" aria-hidden="true">
+              <g stroke="rgba(91,91,214,0.30)" stroke-width="1" fill="none"><path d="M60 70L170 40L290 90L410 50L540 80M60 70L130 160L290 90L250 200L130 160M290 90L380 170L410 50M380 170L520 190L540 80M250 200L380 170L460 260M130 160L90 250L250 200M520 190L460 260M170 40L130 160M410 50L520 190M380 170L330 270L250 200M330 270L460 260"></path></g>
+              <g fill="#818CF8"><circle cx="60" cy="70" r="3.5"></circle><circle cx="170" cy="40" r="3"></circle><circle cx="130" cy="160" r="4"></circle><circle cx="250" cy="200" r="3.5"></circle><circle cx="90" cy="250" r="3"></circle><circle cx="540" cy="80" r="3.5"></circle><circle cx="520" cy="190" r="4"></circle><circle cx="330" cy="270" r="3"></circle><circle cx="460" cy="260" r="3.5"></circle></g>
+              <circle cx="290" cy="90" r="14" fill="#FFFFFF" stroke="#5B5BD6" stroke-width="1.5"></circle><circle cx="290" cy="90" r="5" fill="#5B5BD6"></circle>
+              <circle cx="410" cy="50" r="12" fill="#ECFDF5" stroke="#10B981" stroke-width="1.5"></circle><path d="M404 50l4 4 8-8" stroke="#059669" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="380" cy="170" r="18" fill="#ECFDF5" stroke="#10B981" stroke-width="1.5"></circle><path d="M372 170l5 5 11-11" stroke="#059669" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="380" cy="170" r="30" fill="none" stroke="rgba(16,185,129,0.35)" stroke-width="1" stroke-dasharray="3 5"></circle>
+            </svg>
+            <div style="position: absolute; inset: 0; background: linear-gradient(90deg, #FFFFFF 0%, rgba(255,255,255,0.88) 42%, rgba(255,255,255,0) 68%);"></div>
+            <div style="position: relative; padding: clamp(24px, 4vw, 44px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; width: 100%; box-sizing: border-box;">
+              <div style="display: flex; flex-direction: column; gap: 10px; max-width: min(560px, 54%); min-width: 260px; flex: 1 1 260px;">
+                <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; color: #5B5BD6;">AI-ASSISTED WEBSITE TESTING</span>
+                <h1 style="margin: 0; color: #0F172A; font-size: clamp(30px, 4vw, 48px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1;">Testing <span style="color: #5B5BD6;">Dashboard</span></h1>
+                <span style="color: #475569; font-size: 16px; line-height: 1.5;">{{ totalTests }} automated checks across performance, security, accessibility, SEO and storefront flows.</span>
+              </div>
+              <button onClick="{{ goScanner }}" style="height: 48px; padding: 0 24px; border: none; border-radius: 10px; background: #5B5BD6; color: #FFFFFF; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none; box-shadow: 0 6px 16px rgba(91,91,214,0.30);" style-hover="background: #4343B8;" style-active="transform: translateY(1px);">New Scan</button>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+            <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+              <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 22px 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 6px;">
+                <span style="font-size: 13px; font-weight: 600; color: #64748B;">{{ s.label }}</span>
+                <span style="font-size: 36px; font-weight: 600; letter-spacing: -0.02em;">{{ s.value }}</span>
+                <span style="font-size: 12px; color: #94A3B8;">{{ s.sub }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+            <div style="flex: 2 1 480px; min-width: 0; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 16px;">
+              <span style="font-size: 16px; font-weight: 600;">Score Trend</span>
+              <div style="height: 200px; display: flex; align-items: flex-end; gap: 8px;">
+                <sc-for list="{{ trend }}" as="t" hint-placeholder-count="0">
+                  <div title="{{ t.title }}" style="flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px;">
+                    <span style="font-size: 12px; font-weight: 600;">{{ t.score }}</span>
+                    <div style="width: 100%; max-width: 44px; height: {{ t.h }}%; background: {{ t.color }}; border-radius: 6px 6px 0 0;"></div>
+                    <span style="font-size: 11px; color: #94A3B8; white-space: nowrap;">{{ t.date }}</span>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ noHistory }}" hint-placeholder-val="{{ true }}">
+                  <div style="flex: 1; align-self: center; text-align: center; color: #94A3B8; font-size: 14px;">Run scans to see your score trend.</div>
+                </sc-if>
+              </div>
+            </div>
+            <div style="flex: 1 1 280px; min-width: 0; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 14px;">
+              <span style="font-size: 16px; font-weight: 600;">Open Findings</span>
+              <span style="font-size: 13px; color: #94A3B8; margin-top: -8px;">Latest scan of each site</span>
+              <sc-for list="{{ sevTotals }}" as="v" hint-placeholder-count="4">
+                <div style="display: flex; align-items: center; gap: 12px; font-size: 14px;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: {{ v.dot }}; flex: none;"></span>
+                  <span style="flex: 1;">{{ v.label }}</span>
+                  <span style="font-weight: 600; font-variant-numeric: tabular-nums;">{{ v.count }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow: hidden;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 24px;">
+              <span style="font-size: 16px; font-weight: 600;">Scan History</span>
+              <sc-if value="{{ hasHistory }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ clearHistory }}" style="height: 34px; padding: 0 14px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #fff; color: #334155; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;" style-hover="border-color: #5B5BD6; color: #5B5BD6;">Clear History</button>
+              </sc-if>
+            </div>
+            <div style="overflow-x: auto;">
+              <div style="min-width: 720px;">
+                <div style="display: grid; grid-template-columns: minmax(0,2.2fr) 1.3fr 0.8fr 0.8fr 1.2fr 70px; gap: 16px; padding: 12px 24px; background: #F8FAFC; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;">
+                  <span>URL</span><span>SCAN TYPE</span><span>DEVICE</span><span>SOURCE</span><span>DATE</span><span style="text-align: right;">SCORE</span>
+                </div>
+                <sc-for list="{{ historyRows }}" as="h" hint-placeholder-count="0">
+                  <div onClick="{{ h.open }}" style="display: grid; grid-template-columns: minmax(0,2.2fr) 1.3fr 0.8fr 0.8fr 1.2fr 70px; gap: 16px; padding: 14px 24px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 14px; cursor: pointer; align-items: center;" style-hover="background: #F8FAFC;">
+                    <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #4343B8;">{{ h.url }}</span>
+                    <span>{{ h.type }}</span>
+                    <span>{{ h.device }}</span>
+                    <span style="color: #64748B;">{{ h.source }}</span>
+                    <span style="color: #64748B;">{{ h.date }}</span>
+                    <span style="text-align: right; font-weight: 600; color: {{ h.color }};">{{ h.score }}</span>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ noHistory }}" hint-placeholder-val="{{ true }}">
+                  <div style="padding: 36px 24px; text-align: center; color: #94A3B8; font-size: 14px; border-top: 1px solid rgba(0,0,0,0.08);">No scans yet.</div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isScanner }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Scanner" style="display: flex; flex-direction: column; gap: 28px;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: #5B5BD6;">URL TESTING</span>
+            <h1 style="margin: 0; font-size: clamp(30px, 4vw, 44px); font-weight: 600; letter-spacing: -0.02em;">Test Any <span style="color: #5B5BD6;">URL</span></h1>
+          </div>
+
+          <div style="position: relative; overflow: hidden; border-radius: 14px; background: radial-gradient(700px 360px at 92% -10%, rgba(129,140,248,0.22), transparent 60%), radial-gradient(500px 300px at 60% 120%, rgba(96,165,250,0.14), transparent 60%), #FFFFFF; border: 1px solid #E5E7EB; box-shadow: 0 1px 2px rgba(15,23,42,0.05); padding: 28px; display: flex; flex-direction: column; gap: 20px; color: #0F172A;">
+            <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+              <input type="url" value="{{ url }}" onChange="{{ onUrl }}" onKeyDown="{{ onKey }}" placeholder="https://www.example.com" style="flex: 1 1 320px; min-width: 0; height: 52px; padding: 0 16px; border-radius: 8px; border: 1px solid {{ urlBorder }}; background: #FFFFFF; color: #0F172A; font-size: 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace; outline: none; box-sizing: border-box;" style-focus="border-color: #5B5BD6; box-shadow: 0 0 0 4px rgba(91,91,214,0.25);">
+              <button onClick="{{ startScan }}" disabled="{{ scanning }}" style="flex: none; height: 52px; padding: 0 28px; border: none; border-radius: 8px; background: {{ scanBtnBg }}; color: #FFFFFF; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 10px; white-space: nowrap;" style-hover="background: #4343B8;" style-active="transform: translateY(1px);">
+                <sc-if value="{{ scanning }}" hint-placeholder-val="{{ false }}">
+                  <span style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.35); border-top-color: #FFFFFF; animation: spin 0.7s linear infinite;"></span>
+                </sc-if>
+                <span>{{ scanBtnLabel }}</span>
+              </button>
+            </div>
+            <sc-if value="{{ error }}" hint-placeholder-val="{{ false }}">
+              <span style="color: #DC2626; font-size: 14px; margin-top: -8px;">{{ error }}</span>
+            </sc-if>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+              <label style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="color: #475569; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;">SCAN TYPE</span>
+                <select value="{{ scanType }}" onChange="{{ onScanType }}" style="height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid #CBD5E1; background: #FFFFFF; color: #0F172A; font-size: 14px; font-family: inherit;">
+                  <sc-for list="{{ scanTypes }}" as="t" hint-placeholder-count="9">
+                    <option value="{{ t.id }}">{{ t.label }}</option>
+                  </sc-for>
+                </select>
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="color: #475569; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;">TEST DEVICE</span>
+                <select value="{{ device }}" onChange="{{ onDevice }}" style="height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid #CBD5E1; background: #FFFFFF; color: #0F172A; font-size: 14px; font-family: inherit;">
+                  <sc-for list="{{ devices }}" as="d" hint-placeholder-count="4">
+                    <option value="{{ d.id }}">{{ d.label }}</option>
+                  </sc-for>
+                </select>
+              </label>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="color: #475569; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;">BROWSERS</span>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                  <sc-for list="{{ browserChips }}" as="b" hint-placeholder-count="5">
+                    <button onClick="{{ b.toggle }}" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid {{ b.border }}; background: {{ b.bg }}; color: {{ b.fg }}; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none; white-space: nowrap;">{{ b.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+            <sc-if value="{{ isCustom }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="color: #475569; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;">CUSTOM TEST CATEGORIES</span>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                  <sc-for list="{{ customChips }}" as="c" hint-placeholder-count="12">
+                    <button onClick="{{ c.toggle }}" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid {{ c.border }}; background: {{ c.bg }}; color: {{ c.fg }}; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none; white-space: nowrap;">{{ c.label }} · {{ c.count }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isLive }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+                <input type="password" value="{{ apiKey }}" onChange="{{ onApiKey }}" placeholder="Google PageSpeed API key (optional)" style="flex: 1 1 280px; min-width: 0; height: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid #CBD5E1; background: #FFFFFF; color: #0F172A; font-size: 14px; font-family: 'IBM Plex Mono', ui-monospace, monospace; outline: none; box-sizing: border-box;">
+                <span style="flex: 2 1 320px; font-size: 13px; color: #64748B; line-height: 1.45;">Optional Google PageSpeed key: adds Lighthouse lab metrics and real-user INP. Tests that cannot be measured show as "Not measured" and are excluded from scores.</span>
+              </div>
+            </sc-if>
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 13px; color: #64748B;">
+              <span>{{ testCountLabel }}</span>
+            </div>
+            <sc-if value="{{ scanning }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="height: 6px; border-radius: 999px; background: #E2E8F0; overflow: hidden;">
+                  <div style="height: 100%; width: {{ progressPct }}%; background: #5B5BD6; transition: width 280ms cubic-bezier(0.22,1,0.36,1);"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; color: #64748B; font-size: 13px;">
+                  <span>{{ stageText }}</span><span>{{ progressPct }}%</span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ hasReport }}" hint-placeholder-val="{{ false }}">
+            <div ref="{{ resultsRef }}" style="display: flex; flex-direction: column; gap: 24px;">
+              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px;">
+                <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <h2 style="margin: 0; font-size: 28px; font-weight: 600;">Scan <span style="color: #5B5BD6;">Results</span></h2>
+                    <span style="padding: 3px 10px; border-radius: 999px; background: {{ r.srcBg }}; color: {{ r.srcFg }}; font-size: 12px; font-weight: 600; white-space: nowrap;">{{ r.srcLabel }}</span>
+                  </div>
+                  <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 14px; word-break: break-all;">{{ r.url }}</span>
+                  <span style="font-size: 13px; color: #64748B;">{{ r.meta }}</span>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                  <button onClick="{{ exportJson }}" style="height: 38px; padding: 0 14px; border-radius: 8px; border: 1px solid #5B5BD6; background: transparent; color: #5B5BD6; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none; white-space: nowrap;" style-hover="background: #fff;">Export JSON</button>
+                  <button onClick="{{ exportCsv }}" style="height: 38px; padding: 0 14px; border-radius: 8px; border: 1px solid #5B5BD6; background: transparent; color: #5B5BD6; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none; white-space: nowrap;" style-hover="background: #fff;">Export CSV</button>
+                  <button onClick="{{ exportHtml }}" style="height: 38px; padding: 0 14px; border-radius: 8px; border: 1px solid #5B5BD6; background: transparent; color: #5B5BD6; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none; white-space: nowrap;" style-hover="background: #fff;">Export HTML</button>
+                  <button onClick="{{ printReport }}" style="height: 38px; padding: 0 14px; border-radius: 8px; border: none; background: #5B5BD6; color: #fff; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none; white-space: nowrap;" style-hover="background: #4343B8;">Print</button>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="8">
+                  <button onClick="{{ t.select }}" style="flex: none; height: 44px; padding: 0 14px; border: none; border-bottom: 2px solid {{ t.line }}; background: transparent; color: {{ t.fg }}; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 8px;">
+                    <span>{{ t.label }}</span>
+                    <sc-if value="{{ t.hasBadge }}" hint-placeholder-val="{{ false }}">
+                      <span style="min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: {{ t.badgeBg }}; color: {{ t.badgeFg }}; font-size: 11px; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box;">{{ t.badge }}</span>
+                    </sc-if>
+                  </button>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px;">
+                    <div style="background: linear-gradient(160deg, #1E1B4B 0%, #0F172A 100%); border-radius: 14px; padding: 28px; display: flex; align-items: center; gap: 24px; color: #fff; flex-wrap: wrap;">
+                      <div style="width: 140px; height: 140px; flex: none; border-radius: 50%; background: conic-gradient(#A5B4FC 0 {{ r.ringDeg }}deg, rgba(255,255,255,0.12) 0); display: grid; place-items: center;">
+                        <div style="width: 112px; height: 112px; border-radius: 50%; background: #1A1A40; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                          <span style="font-size: 42px; font-weight: 600; line-height: 1;">{{ r.overall }}</span>
+                          <span style="font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 4px;">of 100</span>
+                        </div>
+                      </div>
+                      <div style="flex: 1 1 180px; display: flex; flex-direction: column; gap: 8px;">
+                        <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: rgba(255,255,255,0.7);">OVERALL SCORE</span>
+                        <span style="font-size: 26px; font-weight: 600; color: #A5B4FC;">{{ r.grade }}</span>
+                        <span style="font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.5;">{{ r.gradeNote }}</span>
+                        <div style="display: flex; gap: 16px; font-size: 13px; margin-top: 4px; flex-wrap: wrap;">
+                          <span>{{ r.passCount }} passed</span><span style="color: #A5B4FC;">{{ r.warnCount }} warnings</span><span style="color: #FF8A9B;">{{ r.failCount }} failed</span><span style="color: rgba(255,255,255,0.6);">{{ r.naCount }} not measured</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 24px 28px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 12px;">
+                      <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: #64748B;">CATEGORY SCORES</span>
+                      <sc-for list="{{ r.categories }}" as="c" hint-placeholder-count="6">
+                        <button onClick="{{ c.open }}" style="display: grid; grid-template-columns: 130px 1fr 36px; align-items: center; gap: 12px; font-size: 14px; border: none; background: transparent; padding: 2px 0; font-family: inherit; cursor: pointer; text-align: left; color: #0F172A;">
+                          <span style="font-weight: 600;">{{ c.label }}</span>
+                          <div style="height: 8px; border-radius: 999px; background: #F1F5F9; overflow: hidden;">
+                            <div style="height: 100%; width: {{ c.score }}%; background: {{ c.color }}; border-radius: 999px;"></div>
+                          </div>
+                          <span style="text-align: right; font-weight: 600; font-variant-numeric: tabular-nums;">{{ c.scoreText }}</span>
+                        </button>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 14px;">
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+                      <h3 style="margin: 0; font-size: 20px; font-weight: 600;">Findings <span style="color: #94A3B8; font-weight: 400;">({{ r.issueCount }})</span></h3>
+                      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                        <sc-for list="{{ sevFilters }}" as="f" hint-placeholder-count="5">
+                          <button onClick="{{ f.select }}" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid {{ f.border }}; background: {{ f.bg }}; color: {{ f.fg }}; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 8px; flex: none; white-space: nowrap;">
+                            <span style="width: 8px; height: 8px; border-radius: 50%; background: {{ f.dot }};"></span>{{ f.label }} · {{ f.count }}
+                          </button>
+                        </sc-for>
+                      </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                      <sc-for list="{{ visibleIssues }}" as="i" hint-placeholder-count="4">
+                        <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 16px 20px; display: grid; grid-template-columns: auto minmax(0,1fr); gap: 14px; align-items: start;">
+                          <span style="margin-top: 2px; padding: 4px 8px; border-radius: 6px; background: {{ i.sevBg }}; color: {{ i.sevFg }}; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; min-width: 64px; text-align: center;">{{ i.sevLabel }}</span>
+                          <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;">
+                              <span style="font-size: 15px; font-weight: 600;">{{ i.title }}</span>
+                              <span style="font-size: 12px; color: #94A3B8;">{{ i.category }}{{ i.ref }}</span>
+                            </div>
+                            <span style="font-size: 14px; color: #64748B; line-height: 1.5;">{{ i.description }}</span>
+                            <span style="font-size: 14px; color: #3730A3; line-height: 1.5;"><strong style="font-weight: 600;">Fix:</strong> {{ i.fix }}</span>
+                          </div>
+                        </div>
+                      </sc-for>
+                      <sc-if value="{{ moreIssues }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ showAllIssues }}" style="height: 40px; border-radius: 8px; border: 1px solid #5B5BD6; background: #fff; color: #5B5BD6; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;">Show all {{ issueTotal }} findings</button>
+                      </sc-if>
+                      <sc-if value="{{ noIssues }}" hint-placeholder-val="{{ false }}">
+                        <div style="padding: 24px; text-align: center; color: #64748B; font-size: 14px; background: #fff; border-radius: 12px;">No findings at this severity.</div>
+                      </sc-if>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isCatTab }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px;">
+                    <div style="display: flex; flex-direction: column; gap: 6px;">
+                      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <h3 style="margin: 0; font-size: 22px; font-weight: 600;">{{ ct.label }}</h3>
+                        <span style="font-size: 22px; font-weight: 600; color: {{ ct.color }};">{{ ct.score }}</span>
+                      </div>
+                      <span style="font-size: 13px; color: #64748B;">{{ ct.std }} · {{ ct.total }} tests · {{ ct.liveNote }}</span>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+                      <span style="padding: 4px 10px; border-radius: 999px; background: #E2F6EC; color: #0E7A48; font-size: 12px; font-weight: 600; white-space: nowrap; flex: none;">{{ ct.pass }} passed</span>
+                      <span style="padding: 4px 10px; border-radius: 999px; background: #FEF3DC; color: #8A5A00; font-size: 12px; font-weight: 600; white-space: nowrap; flex: none;">{{ ct.warn }} warnings</span>
+                      <span style="padding: 4px 10px; border-radius: 999px; background: #FDE6EA; color: #B00020; font-size: 12px; font-weight: 600; white-space: nowrap; flex: none;">{{ ct.fail }} failed</span>
+                      <button onClick="{{ toggleIssuesOnly }}" style="height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.12); background: {{ issuesOnlyBg }}; color: {{ issuesOnlyFg }}; font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none; white-space: nowrap;">Issues only</button>
+                    </div>
+                  </div>
+
+                  <sc-if value="{{ ct.isPerf }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                        <sc-for list="{{ ct.metrics }}" as="m" hint-placeholder-count="7">
+                          <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 6px;">
+                            <span style="font-size: 12px; color: #64748B; font-weight: 600;">{{ m.name }}</span>
+                            <span style="font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums;">{{ m.value }}</span>
+                            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px; font-size: 11px;">
+                              <span style="padding: 2px 8px; border-radius: 999px; background: {{ m.b.bg }}; color: {{ m.b.fg }}; font-weight: 600;">{{ m.b.label }}</span>
+                              <span style="color: #94A3B8; white-space: nowrap;">{{ m.target }}</span>
+                            </div>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <sc-if value="{{ ct.hasWeight }}" hint-placeholder-val="{{ false }}">
+                        <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 14px;">
+                          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+                            <span style="font-size: 16px; font-weight: 600;">Page Weight</span>
+                            <span style="font-size: 14px; color: #64748B;">{{ ct.weightTotal }} · {{ ct.weightReqs }} requests</span>
+                          </div>
+                          <div style="display: flex; height: 14px; border-radius: 999px; overflow: hidden; background: #F1F5F9;">
+                            <sc-for list="{{ ct.weight }}" as="w" hint-placeholder-count="6">
+                              <div title="{{ w.label }}" style="width: {{ w.pct }}%; background: {{ w.color }};"></div>
+                            </sc-for>
+                          </div>
+                          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 20px;">
+                            <sc-for list="{{ ct.weight }}" as="w" hint-placeholder-count="6">
+                              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                                <span style="width: 10px; height: 10px; border-radius: 3px; background: {{ w.color }}; flex: none;"></span>
+                                <span style="flex: 1;">{{ w.label }}</span>
+                                <span style="font-weight: 600;">{{ w.size }}</span>
+                                <span style="color: #94A3B8; min-width: 28px; text-align: right;">{{ w.count }}</span>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ ct.hasBroken }}" hint-placeholder-val="{{ false }}">
+                    <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow: hidden;">
+                      <div style="padding: 16px 24px; font-size: 16px; font-weight: 600;">Broken Links Found</div>
+                      <sc-for list="{{ ct.broken }}" as="l" hint-placeholder-count="3">
+                        <div style="display: grid; grid-template-columns: 56px minmax(0,1fr) minmax(0,160px); gap: 14px; padding: 12px 24px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 13px; align-items: center;">
+                          <span style="padding: 3px 8px; border-radius: 6px; background: #FDE6EA; color: #B00020; font-weight: 600; text-align: center;">{{ l.status }}</span>
+                          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ l.url }}</span>
+                          <span style="color: #64748B; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">on {{ l.from }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+
+                  <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow: hidden;">
+                    <sc-for list="{{ ct.rows }}" as="t" hint-placeholder-count="8">
+                      <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px; padding: 14px 24px; border-bottom: 1px solid rgba(0,0,0,0.06); align-items: start;">
+                        <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0;">
+                          <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;">
+                            <span style="font-size: 14px; font-weight: 600;">{{ t.name }}</span>
+                            <span style="font-size: 12px; color: #94A3B8;">{{ t.ref }}</span>
+                          </div>
+                          <span style="font-size: 13px; color: #64748B; line-height: 1.45;">{{ t.detail }}</span>
+                          <sc-if value="{{ t.showFix }}" hint-placeholder-val="{{ false }}">
+                            <span style="font-size: 13px; color: #3730A3; line-height: 1.45;"><strong style="font-weight: 600;">Fix:</strong> {{ t.fix }}</span>
+                          </sc-if>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end;">
+                          <span style="font-size: 13px; font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #334155; white-space: nowrap;">{{ t.value }}</span>
+                          <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: {{ t.srcFg }}; white-space: nowrap;">{{ t.src }}</span>
+                          <span style="padding: 3px 10px; border-radius: 999px; background: {{ t.b.bg }}; color: {{ t.b.fg }}; font-size: 12px; font-weight: 600; min-width: 56px; text-align: center; white-space: nowrap;">{{ t.b.label }}</span>
+                        </div>
+                      </div>
+                    </sc-for>
+                    <sc-if value="{{ ct.empty }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding: 24px; text-align: center; color: #64748B; font-size: 14px;">All tests in this category passed.</div>
+                    </sc-if>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isDevices }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+                    <h3 style="margin: 0; font-size: 20px; font-weight: 600;">Screenshots Across Devices</h3>
+                    <button onClick="{{ refreshShots }}" style="height: 34px; padding: 0 14px; border-radius: 8px; border: 1px solid #5B5BD6; background: #fff; color: #5B5BD6; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;">Refresh Screenshots</button>
+                  </div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start;">
+                    <sc-for list="{{ frames }}" as="f" hint-placeholder-count="0">
+                      <div style="flex: {{ f.flex }}; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="background: #0F172A; border-radius: {{ f.radius }}; padding: {{ f.pad }}; box-shadow: 0 8px 24px rgba(15,23,42,0.16);">
+                          <div role="img" aria-label="{{ f.label }} screenshot" style="display: block; width: 100%; aspect-ratio: {{ f.ratio }}; background-color: #F8FAFC; background-image: {{ f.bg }}; background-size: cover; background-position: top center; background-repeat: no-repeat; border-radius: 4px;"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                          <span style="font-weight: 600;">{{ f.label }}</span><span style="color: #94A3B8;">{{ f.size }}</span>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <span style="font-size: 12px; color: #94A3B8; margin-top: -8px;">Screenshots are captured by a public screenshot service. The first request can show a placeholder; refresh after a few seconds.</span>
+
+                  <h3 style="margin: 8px 0 0; font-size: 20px; font-weight: 600;">Device × Browser Comparison</h3>
+                  <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow-x: auto;">
+                    <div style="min-width: 520px;">
+                      <div style="display: flex; gap: 12px; padding: 12px 24px; background: #F8FAFC; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;">
+                        <span style="width: 100px; flex: none;">DEVICE</span>
+                        <sc-for list="{{ matrixHead }}" as="b" hint-placeholder-count="3">
+                          <span style="flex: 1; text-align: center;">{{ b }}</span>
+                        </sc-for>
+                      </div>
+                      <sc-for list="{{ matrix }}" as="row" hint-placeholder-count="3">
+                        <div style="display: flex; gap: 12px; padding: 12px 24px; border-top: 1px solid rgba(0,0,0,0.08); align-items: center; font-size: 14px;">
+                          <span style="width: 100px; flex: none; font-weight: 600;">{{ row.device }}</span>
+                          <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="3">
+                            <span style="flex: 1; display: flex; justify-content: center;">
+                              <span style="min-width: 48px; padding: 6px 10px; border-radius: 8px; background: {{ c.bg }}; color: {{ c.fg }}; font-weight: 600; text-align: center;">{{ c.score }}</span>
+                            </span>
+                          </sc-for>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isBulk }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Bulk Scan" style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: #5B5BD6;">MULTI-URL</span>
+            <h1 style="margin: 0; font-size: clamp(30px, 4vw, 44px); font-weight: 600; letter-spacing: -0.02em;">Bulk <span style="color: #5B5BD6;">Scan</span></h1>
+          </div>
+          <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 16px;">
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;">URLS · ONE PER LINE</span>
+              <textarea value="{{ bulkText }}" onChange="{{ onBulkText }}" rows="6" placeholder="https://www.example.com&#10;https://www.example.com/products" style="padding: 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.6; resize: vertical; outline: none;" style-focus="border-color: #5B5BD6; box-shadow: 0 0 0 4px rgba(91,91,214,0.15);"></textarea>
+            </label>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+              <input type="url" value="{{ sitemapUrl }}" onChange="{{ onSitemap }}" placeholder="https://www.example.com/sitemap.xml" style="flex: 1 1 280px; min-width: 0; height: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; outline: none; box-sizing: border-box;">
+              <button onClick="{{ loadSitemap }}" style="height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid #5B5BD6; background: #fff; color: #5B5BD6; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;">Load from Sitemap</button>
+            </div>
+            <sc-if value="{{ sitemapNote }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size: 13px; color: #64748B;">{{ sitemapNote }}</span>
+            </sc-if>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
+              <select value="{{ scanType }}" onChange="{{ onScanType }}" style="height: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-size: 14px; font-family: inherit; background: #fff;">
+                <sc-for list="{{ scanTypesNoCustom }}" as="t" hint-placeholder-count="8">
+                  <option value="{{ t.id }}">{{ t.label }}</option>
+                </sc-for>
+              </select>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <sc-if value="{{ hasBulk }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ exportBulkCsv }}" style="height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid #5B5BD6; background: #fff; color: #5B5BD6; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;">Export CSV</button>
+                </sc-if>
+                <button onClick="{{ runBulk }}" disabled="{{ bulkRunning }}" style="height: 40px; padding: 0 20px; border: none; border-radius: 8px; background: #5B5BD6; color: #fff; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;" style-hover="background: #4343B8;">{{ bulkBtnLabel }}</button>
+              </div>
+            </div>
+          </div>
+          <sc-if value="{{ hasBulk }}" hint-placeholder-val="{{ false }}">
+            <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow-x: auto;">
+              <div style="min-width: 760px;">
+                <div style="display: grid; grid-template-columns: minmax(0,2.4fr) 70px 70px 70px 70px 70px 80px 90px; gap: 12px; padding: 12px 24px; background: #F8FAFC; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;">
+                  <span>URL</span><span>SCORE</span><span>PERF</span><span>SEC</span><span>A11Y</span><span>SEO</span><span>ISSUES</span><span>STATUS</span>
+                </div>
+                <sc-for list="{{ bulkRows }}" as="b" hint-placeholder-count="3">
+                  <div onClick="{{ b.open }}" style="display: grid; grid-template-columns: minmax(0,2.4fr) 70px 70px 70px 70px 70px 80px 90px; gap: 12px; padding: 12px 24px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 14px; align-items: center; cursor: pointer;" style-hover="background: #F8FAFC;">
+                    <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #4343B8;">{{ b.url }}</span>
+                    <span style="font-weight: 600; color: {{ b.color }};">{{ b.score }}</span>
+                    <span>{{ b.perf }}</span><span>{{ b.sec }}</span><span>{{ b.a11y }}</span><span>{{ b.seo }}</span>
+                    <span>{{ b.issues }}</span>
+                    <span style="font-size: 12px; font-weight: 600; color: {{ b.statusFg }};">{{ b.status }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCompare }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Compare" style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: #5B5BD6;">BEFORE / AFTER</span>
+            <h1 style="margin: 0; font-size: clamp(30px, 4vw, 44px); font-weight: 600; letter-spacing: -0.02em;">Compare <span style="color: #5B5BD6;">Scans</span></h1>
+          </div>
+          <sc-if value="{{ cannotCompare }}" hint-placeholder-val="{{ false }}">
+            <div style="background: #fff; border-radius: 14px; padding: 40px 24px; text-align: center; color: #64748B; font-size: 15px; border: 1px solid rgba(0,0,0,0.08);">Run at least two scans to compare them.</div>
+          </sc-if>
+          <sc-if value="{{ canCompare }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+                <label style="display: flex; flex-direction: column; gap: 8px;">
+                  <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;">BEFORE</span>
+                  <select value="{{ cmpA }}" onChange="{{ onCmpA }}" style="height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-size: 14px; font-family: inherit; background: #fff;">
+                    <sc-for list="{{ cmpOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o.id }}">{{ o.label }}</option></sc-for>
+                  </select>
+                </label>
+                <label style="display: flex; flex-direction: column; gap: 8px;">
+                  <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;">AFTER</span>
+                  <select value="{{ cmpB }}" onChange="{{ onCmpB }}" style="height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-size: 14px; font-family: inherit; background: #fff;">
+                    <sc-for list="{{ cmpOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o.id }}">{{ o.label }}</option></sc-for>
+                  </select>
+                </label>
+              </div>
+              <div style="background: linear-gradient(160deg, #1E1B4B 0%, #0F172A 100%); border-radius: 14px; padding: 28px; color: #fff; display: flex; flex-wrap: wrap; align-items: center; gap: 28px;">
+                <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; color: rgba(255,255,255,0.65);">BEFORE</span><span style="font-size: 44px; font-weight: 600;">{{ cmp.a }}</span></div>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A5B4FC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; color: rgba(255,255,255,0.65);">AFTER</span><span style="font-size: 44px; font-weight: 600;">{{ cmp.b }}</span></div>
+                <span style="font-size: 28px; font-weight: 600; color: {{ cmp.deltaColor }};">{{ cmp.delta }}</span>
+                <div style="flex: 1 1 220px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: flex-end; font-size: 14px;">
+                  <span>{{ cmp.fixedCount }} tests fixed</span><span style="color: #FF8A9B;">{{ cmp.regCount }} regressions</span>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px;">
+                <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow: hidden;">
+                  <div style="display: grid; grid-template-columns: minmax(0,1fr) 60px 60px 60px; gap: 12px; padding: 12px 20px; background: #F8FAFC; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;"><span>CATEGORY</span><span>BEFORE</span><span>AFTER</span><span>CHANGE</span></div>
+                  <sc-for list="{{ cmp.cats }}" as="c" hint-placeholder-count="6">
+                    <div style="display: grid; grid-template-columns: minmax(0,1fr) 60px 60px 60px; gap: 12px; padding: 12px 20px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 14px;">
+                      <span style="font-weight: 600;">{{ c.label }}</span><span>{{ c.a }}</span><span>{{ c.b }}</span><span style="font-weight: 600; color: {{ c.color }};">{{ c.delta }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow: hidden;">
+                  <div style="display: grid; grid-template-columns: minmax(0,1fr) 70px 70px 64px; gap: 12px; padding: 12px 20px; background: #F8FAFC; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;"><span>METRIC</span><span>BEFORE</span><span>AFTER</span><span>CHANGE</span></div>
+                  <sc-for list="{{ cmp.metrics }}" as="m" hint-placeholder-count="4">
+                    <div style="display: grid; grid-template-columns: minmax(0,1fr) 70px 70px 64px; gap: 12px; padding: 12px 20px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 14px;">
+                      <span style="font-weight: 600;">{{ m.label }}</span><span>{{ m.a }}</span><span>{{ m.b }}</span><span style="font-weight: 600; color: {{ m.color }};">{{ m.delta }}</span>
+                    </div>
+                  </sc-for>
+                  <sc-if value="{{ cmp.noMetrics }}" hint-placeholder-val="{{ false }}">
+                    <div style="padding: 20px; font-size: 14px; color: #94A3B8;">Both scans need performance tests to compare metrics.</div>
+                  </sc-if>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px;">
+                <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 20px 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 10px;">
+                  <span style="font-size: 16px; font-weight: 600; color: #0E7A48;">Fixed ({{ cmp.fixedCount }})</span>
+                  <sc-for list="{{ cmp.fixed }}" as="x" hint-placeholder-count="3">
+                    <div style="display: flex; gap: 10px; font-size: 14px; align-items: baseline;"><span style="color: #18B26B; flex: none;">●</span><span style="flex: 1;">{{ x.name }}</span><span style="color: #94A3B8; font-size: 12px;">{{ x.cat }}</span></div>
+                  </sc-for>
+                </div>
+                <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 20px 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 10px;">
+                  <span style="font-size: 16px; font-weight: 600; color: #B00020;">Regressions ({{ cmp.regCount }})</span>
+                  <sc-for list="{{ cmp.reg }}" as="x" hint-placeholder-count="3">
+                    <div style="display: flex; gap: 10px; font-size: 14px; align-items: baseline;"><span style="color: #D80027; flex: none;">●</span><span style="flex: 1;">{{ x.name }}</span><span style="color: #94A3B8; font-size: 12px;">{{ x.cat }}</span></div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isMonitor }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Uptime Monitor" style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: #5B5BD6;">AVAILABILITY</span>
+            <h1 style="margin: 0; font-size: clamp(30px, 4vw, 44px); font-weight: 600; letter-spacing: -0.02em;">Uptime <span style="color: #5B5BD6;">Monitor</span></h1>
+          </div>
+          <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 20px 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+            <input type="url" value="{{ monUrl }}" onChange="{{ onMonUrl }}" placeholder="https://www.example.com" style="flex: 1 1 300px; min-width: 0; height: 44px; padding: 0 14px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 14px; outline: none; box-sizing: border-box;">
+            <select value="{{ monInterval }}" onChange="{{ onMonInterval }}" style="height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-size: 14px; font-family: inherit; background: #fff;">
+              <option value="5">Every 5 seconds</option>
+              <option value="15">Every 15 seconds</option>
+              <option value="30">Every 30 seconds</option>
+              <option value="60">Every 60 seconds</option>
+            </select>
+            <button onClick="{{ toggleMonitor }}" style="height: 44px; padding: 0 22px; border: none; border-radius: 8px; background: {{ monBtnBg }}; color: #fff; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;">{{ monBtnLabel }}</button>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px;">
+            <sc-for list="{{ monStats }}" as="s" hint-placeholder-count="5">
+              <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 20px 22px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 6px;">
+                <span style="font-size: 13px; font-weight: 600; color: #64748B;">{{ s.label }}</span>
+                <span style="font-size: 30px; font-weight: 600; color: {{ s.color }};">{{ s.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-size: 16px; font-weight: 600;">Response Time</span><span style="font-size: 13px; color: #94A3B8;">Last {{ monCount }} checks</span></div>
+            <div style="height: 160px; display: flex; align-items: flex-end; gap: 3px;">
+              <sc-for list="{{ monBars }}" as="b" hint-placeholder-count="0">
+                <div title="{{ b.title }}" style="flex: 1; min-width: 2px; max-width: 18px; height: {{ b.h }}%; background: {{ b.color }}; border-radius: 3px 3px 0 0;"></div>
+              </sc-for>
+              <sc-if value="{{ monEmpty }}" hint-placeholder-val="{{ true }}">
+                <div style="flex: 1; align-self: center; text-align: center; color: #94A3B8; font-size: 14px;">Start monitoring to record response times.</div>
+              </sc-if>
+            </div>
+          </div>
+          <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow: hidden;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding: 12px 24px; background: #F8FAFC; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;"><span>TIME</span><span>STATUS</span><span>RESPONSE</span></div>
+            <sc-for list="{{ monLog }}" as="l" hint-placeholder-count="0">
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding: 10px 24px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 14px;">
+                <span style="color: #64748B;">{{ l.time }}</span><span style="font-weight: 600; color: {{ l.color }};">{{ l.status }}</span><span style="font-variant-numeric: tabular-nums;">{{ l.ms }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <span style="font-size: 13px; color: #94A3B8; line-height: 1.5;">Checks run from your browser while this page is open. They measure whether the host responds and the round-trip time. For 24/7 monitoring from multiple regions, connect a server-side monitor.</span>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSchedules }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Schedules" style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: #5B5BD6;">AUTOMATION</span>
+            <h1 style="margin: 0; font-size: clamp(30px, 4vw, 44px); font-weight: 600; letter-spacing: -0.02em;">Scheduled <span style="color: #5B5BD6;">Scans</span></h1>
+          </div>
+          <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 20px 24px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+            <input type="url" value="{{ schUrl }}" onChange="{{ onSchUrl }}" placeholder="https://www.example.com" style="flex: 1 1 280px; min-width: 0; height: 44px; padding: 0 14px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 14px; outline: none; box-sizing: border-box;">
+            <select value="{{ schFreq }}" onChange="{{ onSchFreq }}" style="height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-size: 14px; font-family: inherit; background: #fff;">
+              <sc-for list="{{ freqOpts }}" as="f" hint-placeholder-count="5"><option value="{{ f.id }}">{{ f.label }}</option></sc-for>
+            </select>
+            <select value="{{ schType }}" onChange="{{ onSchType }}" style="height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.16); font-size: 14px; font-family: inherit; background: #fff;">
+              <sc-for list="{{ scanTypesNoCustom }}" as="t" hint-placeholder-count="8"><option value="{{ t.id }}">{{ t.label }}</option></sc-for>
+            </select>
+            <button onClick="{{ addSchedule }}" style="height: 44px; padding: 0 22px; border: none; border-radius: 8px; background: #5B5BD6; color: #fff; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;" style-hover="background: #4343B8;">Add Schedule</button>
+          </div>
+          <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow-x: auto;">
+            <div style="min-width: 820px;">
+              <div style="display: grid; grid-template-columns: minmax(0,2fr) 1fr 1.3fr 1fr 70px 260px; gap: 12px; padding: 12px 24px; background: #F8FAFC; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;">
+                <span>URL</span><span>FREQUENCY</span><span>SCAN TYPE</span><span>NEXT RUN</span><span>LAST</span><span style="text-align: right;">ACTIONS</span>
+              </div>
+              <sc-for list="{{ schRows }}" as="s" hint-placeholder-count="0">
+                <div style="display: grid; grid-template-columns: minmax(0,2fr) 1fr 1.3fr 1fr 70px 260px; gap: 12px; padding: 12px 24px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 14px; align-items: center;">
+                  <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ s.url }}</span>
+                  <span>{{ s.freq }}</span>
+                  <span>{{ s.type }}</span>
+                  <span style="color: {{ s.nextColor }};">{{ s.next }}</span>
+                  <span style="font-weight: 600; color: {{ s.color }};">{{ s.last }}</span>
+                  <div style="display: flex; gap: 6px; justify-content: flex-end;">
+                    <button onClick="{{ s.run }}" style="height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #5B5BD6; background: #fff; color: #5B5BD6; font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;">Run Now</button>
+                    <button onClick="{{ s.toggle }}" style="height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #fff; color: #334155; font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;">{{ s.toggleLabel }}</button>
+                    <button onClick="{{ s.remove }}" style="height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #fff; color: #B00020; font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer; flex: none;">Delete</button>
+                  </div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ noSchedules }}" hint-placeholder-val="{{ true }}">
+                <div style="padding: 36px 24px; text-align: center; color: #94A3B8; font-size: 14px; border-top: 1px solid rgba(0,0,0,0.08);">No schedules yet.</div>
+              </sc-if>
+            </div>
+          </div>
+          <span style="font-size: 13px; color: #94A3B8; line-height: 1.5;">Scheduled scans run while this page is open and results are added to Scan History. Unattended scheduling needs a server or CI job.</span>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCatalog }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Test Catalog" style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: #5B5BD6;">INDUSTRY-STANDARD CHECKS</span>
+            <h1 style="margin: 0; font-size: clamp(30px, 4vw, 44px); font-weight: 600; letter-spacing: -0.02em;">{{ totalTests }} Tests Across <span style="color: #5B5BD6;">{{ catCount }} Categories</span></h1>
+            <span style="font-size: 15px; color: #64748B; max-width: 720px; line-height: 1.5;">Checks are based on Core Web Vitals, Lighthouse, OWASP secure headers, WCAG 2.2 AA, Google Search Essentials, GDPR/CCPA and common B2B commerce flows.</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <sc-for list="{{ catalog }}" as="c" hint-placeholder-count="12">
+              <div style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); overflow: hidden;">
+                <button onClick="{{ c.toggle }}" style="width: 100%; display: flex; align-items: center; gap: 16px; padding: 16px 20px; border: none; background: transparent; font-family: inherit; cursor: pointer; text-align: left; color: #0F172A;">
+                  <span style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 16px; font-weight: 600;">{{ c.label }}</span>
+                    <span style="font-size: 13px; color: #64748B;">{{ c.std }}</span>
+                  </span>
+                  <span style="font-size: 13px; color: #64748B; white-space: nowrap;">{{ c.liveCount }} Lighthouse</span>
+                  <span style="padding: 4px 12px; border-radius: 999px; background: #EEF0FF; color: #4343B8; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ c.count }} tests</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate({{ c.rot }}deg); transition: transform 200ms;"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+                <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="border-top: 1px solid rgba(0,0,0,0.08);">
+                    <sc-for list="{{ c.tests }}" as="t" hint-placeholder-count="6">
+                      <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px; padding: 10px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 14px; align-items: center;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; min-width: 0;">
+                          <span>{{ t.name }}</span>
+                          <span style="font-size: 12px; color: #94A3B8;">{{ t.ref }}</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                          <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: #5B5BD6;">{{ t.lhTag }}</span>
+                          <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: #64748B;">{{ t.quickTag }}</span>
+                          <span style="padding: 2px 8px; border-radius: 6px; background: {{ t.sevBg }}; color: {{ t.sevFg }}; font-size: 10px; font-weight: 600; letter-spacing: 0.08em;">{{ t.sevLabel }}</span>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const CATS = [
+  { id: 'performance', label: 'Performance', std: 'Core Web Vitals · Lighthouse' },
+  { id: 'security', label: 'Security', std: 'OWASP Secure Headers · TLS · Mozilla Observatory' },
+  { id: 'accessibility', label: 'Accessibility', std: 'WCAG 2.2 Level AA' },
+  { id: 'seo', label: 'SEO', std: 'Google Search Essentials · Schema.org' },
+  { id: 'mobile', label: 'Mobile', std: 'Mobile-friendly · Responsive design' },
+  { id: 'browsers', label: 'Cross-browser', std: 'Chrome · Safari · Firefox · Edge · Samsung' },
+  { id: 'links', label: 'Links & Content', std: 'HTTP status codes · W3C link checking' },
+  { id: 'privacy', label: 'Privacy', std: 'GDPR · CCPA/CPRA · ePrivacy' },
+  { id: 'bestpractices', label: 'Best Practices', std: 'Lighthouse Best Practices · W3C HTML' },
+  { id: 'infra', label: 'Network & DNS', std: 'HTTP/2-3 · DNS · CDN · TTFB' },
+  { id: 'analytics', label: 'Analytics', std: 'GA4 · Google Tag Manager · Consent Mode' },
+  { id: 'storefront', label: 'B2B Storefront', std: 'Search → PDP → Cart → Checkout flow' }
+];
+const CAT_BY = Object.fromEntries(CATS.map(c => [c.id, c]));
+const METRICS = [
+  { name: 'Largest Contentful Paint', lh: 'largest-contentful-paint', unit: 's', div: 1000, good: 2.5, poor: 4, base: 1.2, spread: 3.2, sev: 'high', quick: true, ref: 'Core Web Vital' },
+  { name: 'Interaction to Next Paint', lh: null, field: 'INTERACTION_TO_NEXT_PAINT', unit: 'ms', div: 1, good: 200, poor: 500, base: 60, spread: 300, sev: 'high', quick: true, ref: 'Core Web Vital' },
+  { name: 'Cumulative Layout Shift', lh: 'cumulative-layout-shift', unit: '', div: 1, good: 0.1, poor: 0.25, base: 0.02, spread: 0.22, sev: 'high', quick: true, ref: 'Core Web Vital' },
+  { name: 'First Contentful Paint', lh: 'first-contentful-paint', unit: 's', div: 1000, good: 1.8, poor: 3, base: 0.7, spread: 2.4, sev: 'medium', ref: 'Lighthouse metric' },
+  { name: 'Time to First Byte', lh: 'server-response-time', unit: 'ms', div: 1, good: 800, poor: 1800, base: 120, spread: 1100, sev: 'medium', ref: 'Web Vital' },
+  { name: 'Total Blocking Time', lh: 'total-blocking-time', unit: 'ms', div: 1, good: 200, poor: 600, base: 20, spread: 700, sev: 'medium', ref: 'Lighthouse metric' },
+  { name: 'Speed Index', lh: 'speed-index', unit: 's', div: 1000, good: 3.4, poor: 5.8, base: 1.4, spread: 4.5, sev: 'medium', ref: 'Lighthouse metric' }
+];
+const RAW = {
+  performance: [
+    'Text compression enabled|medium|Text assets served without Brotli or Gzip.|Enable Brotli or Gzip on the server or CDN.|uses-text-compression',
+    'Efficient cache policy|low|Static assets cached for less than 7 days.|Set a long Cache-Control max-age on hashed assets.|uses-long-cache-ttl',
+    '*No render-blocking resources|high|CSS and JS in the head delay first paint.|Defer non-critical JS and inline critical CSS.|render-blocking-resources',
+    'Unused JavaScript removed|medium|A large share of loaded JavaScript is unused.|Code-split bundles and remove unused libraries.|unused-javascript',
+    'Unused CSS removed|low|Stylesheets contain many unused rules.|Purge unused CSS per page template.|unused-css-rules',
+    'Modern image formats|medium|Images served as JPEG or PNG only.|Serve WebP or AVIF with fallbacks.|modern-image-formats',
+    'Properly sized images|medium|Images are larger than their rendered size.|Use srcset and resize images on the CDN.|uses-responsive-images',
+    'Offscreen images lazy-loaded|low|Below-the-fold images load eagerly.|Add loading="lazy" to offscreen images.|offscreen-images',
+    'Minified JavaScript|low|JavaScript files are not minified.|Minify JavaScript in the build pipeline.|unminified-javascript',
+    'Minified CSS|low|CSS files are not minified.|Minify CSS in the build pipeline.|unminified-css',
+    'Web fonts use font-display|low|Text is invisible while web fonts load.|Add font-display: swap to @font-face rules.|font-display',
+    'Preconnect to key origins|low|No preconnect hints for CDN or API origins.|Add rel="preconnect" for critical third-party origins.|uses-rel-preconnect',
+    '*Total page weight under 2 MB|medium|Page transfers more than 2 MB.|Compress images and trim third-party scripts.|total-byte-weight',
+    'DOM size under 1,500 nodes|low|Excessive DOM size slows style and layout.|Paginate long lists and simplify markup.|dom-size',
+    'Third-party script impact|medium|Third-party code blocks the main thread.|Load tags async or through a consent-aware tag manager.|third-party-summary'
+  ],
+  security: [
+    '*Valid SSL certificate|critical|Certificate chain is invalid or self-signed.|Install a certificate from a trusted CA with the full chain.|is-on-https|TLS',
+    '*Certificate valid for 30+ days|critical|Certificate expires within 30 days.|Renew now and enable automatic renewal.||TLS',
+    'TLS 1.2 or higher only|high|Server still accepts TLS 1.0 or 1.1.|Disable legacy TLS protocol versions.||TLS',
+    '*HTTP redirects to HTTPS|high|Plain HTTP does not redirect to HTTPS.|Add a 301 redirect from HTTP to HTTPS.|redirects-http',
+    '*Strict-Transport-Security header|high|HSTS header is not set.|Add Strict-Transport-Security: max-age=31536000; includeSubDomains.|has-hsts|OWASP',
+    'Content-Security-Policy header|high|No Content-Security-Policy header returned.|Define a CSP that restricts script and frame sources.|csp-xss|OWASP',
+    'Clickjacking protection|medium|No X-Frame-Options or frame-ancestors directive.|Set frame-ancestors \'self\' in the CSP.|clickjacking-mitigation|OWASP',
+    'X-Content-Type-Options header|medium|nosniff is not set.|Add X-Content-Type-Options: nosniff.||OWASP',
+    'Referrer-Policy header|low|Referrer-Policy is not set.|Use strict-origin-when-cross-origin.||OWASP',
+    'Permissions-Policy header|low|Browser features are not restricted.|Disable camera, microphone and geolocation if unused.||OWASP',
+    'Cross-Origin-Opener-Policy|low|COOP is not set.|Set Cross-Origin-Opener-Policy: same-origin.|origin-isolation|OWASP',
+    'No mixed content|medium|Some assets load over HTTP on an HTTPS page.|Serve every asset over HTTPS.',
+    'Cookies use Secure flag|medium|Session cookies are sent without Secure.|Set the Secure attribute on all cookies.||OWASP',
+    'Cookies use HttpOnly|medium|Session cookie is readable by JavaScript.|Set HttpOnly on session cookies.||OWASP',
+    'Cookies use SameSite|low|Cookies are missing the SameSite attribute.|Set SameSite=Lax or Strict.||OWASP',
+    'CORS policy restricted|high|Access-Control-Allow-Origin is * with credentials.|Allow-list specific trusted origins.||OWASP',
+    'Server version hidden|low|Server header discloses the software version.|Remove versions from Server and X-Powered-By headers.',
+    'No vulnerable JS libraries|high|A library version with known CVEs was detected.|Upgrade libraries to patched versions.||OWASP A06',
+    'Directory listing disabled|medium|A directory index is exposed.|Disable autoindex on the web server.||OWASP A05',
+    'security.txt published|low|/.well-known/security.txt not found.|Publish a security contact file.||RFC 9116',
+    'SPF record configured|low|No SPF record for the domain.|Add a TXT SPF record listing sending services.||Email',
+    'DMARC record configured|medium|No DMARC policy published.|Publish DMARC at p=none, then move to enforcement.||Email',
+    'Subresource Integrity on CDN scripts|low|Third-party scripts load without integrity hashes.|Add integrity and crossorigin attributes.||SRI'
+  ],
+  accessibility: [
+    '*Images have alt text|medium|Product images are missing alt attributes.|Add descriptive alt text.|image-alt|WCAG 1.1.1 A',
+    '*Text contrast 4.5:1|high|Some text is below 4.5:1 contrast.|Darken text or lighten its background.|color-contrast|WCAG 1.4.3 AA',
+    'Form fields have labels|high|Inputs without associated labels.|Use label elements or aria-label.|label|WCAG 1.3.1 A',
+    'Visible focus indicator|medium|Focus outline is removed on links and buttons.|Restore a visible :focus-visible style.||WCAG 2.4.7 AA',
+    'Logical heading order|low|Heading levels are skipped.|Use sequential heading levels.|heading-order|WCAG 1.3.1 A',
+    'Links have discernible names|medium|Icon links have no text.|Add visible text or aria-label.|link-name|WCAG 2.4.4 A',
+    'Buttons have accessible names|medium|Icon-only buttons have no label.|Add aria-label to icon buttons.|button-name|WCAG 4.1.2 A',
+    'Page language set|low|The html element has no lang attribute.|Add lang="en" to the html element.|html-has-lang|WCAG 3.1.1 A',
+    'Valid ARIA attributes|medium|Invalid or misspelled ARIA attributes.|Fix ARIA attribute names and values.|aria-valid-attr|WCAG 4.1.2 A',
+    'Touch targets 24px minimum|medium|Controls smaller than 24×24 px.|Increase hit area or spacing.|target-size|WCAG 2.5.8 AA',
+    'Page has a title|medium|Document title is missing.|Add a unique title element.|document-title|WCAG 2.4.2 A',
+    'No keyboard traps|high|Keyboard focus gets trapped in a modal.|Allow Esc and Tab to leave modals.||WCAG 2.1.2 A',
+    'Skip-to-content link|low|No way to bypass repeated navigation.|Add a skip link as the first focusable element.|bypass|WCAG 2.4.1 A',
+    'Reflows at 400% zoom|medium|Content is clipped at 320px width.|Use responsive layout without fixed widths.||WCAG 1.4.10 AA',
+    'Video captions|medium|Videos have no captions.|Provide captions for all video content.|video-caption|WCAG 1.2.2 A',
+    'Data tables have headers|low|Tables lack header cells.|Mark header cells with th and scope.|td-has-header|WCAG 1.3.1 A',
+    'Errors identified in text|medium|Form errors are shown by color only.|Describe errors in text next to the field.||WCAG 3.3.1 A',
+    'Consistent navigation|low|Navigation order changes between pages.|Keep navigation order consistent.||WCAG 3.2.3 AA',
+    'Focus not obscured|low|Sticky header hides focused elements.|Add scroll-padding for sticky headers.||WCAG 2.4.11 AA'
+  ],
+  seo: [
+    '*Title tag present|medium|Title is missing or longer than 60 characters.|Write a unique 50–60 character title.|document-title',
+    '*Meta description|low|Meta description is missing.|Add a 150–160 character description.|meta-description',
+    'Canonical URL|medium|No canonical tag found.|Add a self-referencing canonical tag.|canonical',
+    'robots.txt valid|medium|robots.txt is missing or invalid.|Publish a valid robots.txt.|robots-txt',
+    'XML sitemap|medium|No sitemap referenced in robots.txt.|Generate a sitemap and reference it in robots.txt.',
+    'Structured data (JSON-LD)|low|No Organization schema found.|Add Organization and WebSite JSON-LD.||Schema.org',
+    'Product schema|medium|Product pages lack Product and Offer schema.|Add Product schema with price and availability.||Schema.org',
+    'Breadcrumb schema|low|No BreadcrumbList markup.|Add BreadcrumbList JSON-LD.||Schema.org',
+    'Open Graph tags|low|og:image is missing.|Add og:title, og:description and og:image.',
+    'X (Twitter) card|low|twitter:card is not set.|Add summary_large_image card tags.',
+    'Single H1 heading|low|Page has no H1 or more than one.|Use exactly one H1 per page.',
+    '*Page is indexable|critical|Page is blocked by noindex.|Remove noindex from production pages.|is-crawlable',
+    'Valid hreflang|low|hreflang values are invalid.|Use valid language-region codes.|hreflang',
+    'Custom 404 returns 404|medium|Missing pages return 200 (soft 404).|Return a real 404 status for missing pages.',
+    'Clean, readable URLs|low|URLs contain session IDs or long parameters.|Use descriptive, parameter-free URLs.',
+    'Crawlable links|medium|Some links rely on JavaScript without href.|Use anchor elements with href for navigation.|crawlable-anchors',
+    'HTTP status 200|critical|Page returned a non-200 status.|Fix server errors or redirect loops.|http-status-code'
+  ],
+  mobile: [
+    '*Viewport meta tag|high|Viewport meta tag is missing.|Add width=device-width, initial-scale=1.|viewport',
+    'Tap targets 44px|medium|Filter chips are under 44×44 px.|Increase touch target size and spacing.',
+    'Legible font sizes|medium|Body text is below 16px on mobile.|Use at least 16px body text.|font-size',
+    '*No horizontal scroll at 375px|medium|Content overflows a 375px viewport.|Wrap wide tables in scroll containers.',
+    'Responsive images (srcset)|low|The same large image is served to all screens.|Serve srcset and sizes variants.',
+    'Mobile menu usable|medium|Mega-menu cannot be closed on touch.|Add a close control and tap-outside dismiss.',
+    'Correct input types|low|Phone and email fields use type="text".|Use tel, email and number input types.',
+    'No intrusive interstitials|medium|A full-screen popup shows on first load.|Delay or shrink promotional popups.'
+  ],
+  browsers: [
+    'Renders in Chrome|high|Layout errors in Chrome.|Check the console and fix failing CSS.',
+    'Renders in Safari|high|Flexbox gap and date input issues in Safari.|Add fallbacks for Safari 15.',
+    'Renders in Firefox|medium|Font rendering differs in Firefox.|Test and normalize font settings.',
+    'Renders in Edge|medium|Legacy polyfill errors in Edge.|Remove legacy polyfills.',
+    'Renders in Samsung Internet|low|Forced dark mode inverts product images.|Set color-scheme and test forced dark mode.',
+    'CSS features have fallbacks|low|Unsupported CSS used without fallback.|Use @supports and provide fallbacks.',
+    'No deprecated APIs|low|Deprecated browser APIs are in use.|Replace deprecated calls.|deprecations',
+    'No JS errors across browsers|high|A script error occurs in one or more browsers.|Transpile for your supported browser list.'
+  ],
+  links: [
+    '*No broken internal links|high|Internal links return 404.|Fix or redirect broken URLs.',
+    'No broken external links|low|External links return errors.|Update or remove dead links.',
+    'No redirect chains|medium|Links pass through two or more redirects.|Point links directly at the final URL.|redirects',
+    'No broken images|medium|Some images fail to load.|Fix image paths on the CDN.',
+    'CSS and JS resources load|high|A stylesheet or script returns 404.|Fix asset paths in templates.',
+    'Anchor links resolve|low|#anchors point to missing IDs.|Match anchor targets to element IDs.',
+    'Mailto and tel links valid|low|Malformed tel: or mailto: links.|Use E.164 phone number format.',
+    'Documents reachable|low|Spec sheet PDFs return 404.|Re-upload or redirect missing documents.'
+  ],
+  privacy: [
+    'Cookie consent banner|high|No consent banner for EU visitors.|Add a consent platform with accept and reject options.||GDPR',
+    'No tracking before consent|high|Analytics cookies are set before consent.|Block tags until consent is given.||ePrivacy',
+    'Privacy policy linked|medium|No privacy policy link in the footer.|Link the privacy policy site-wide.||GDPR',
+    'Terms of service linked|low|No terms link found.|Link terms and conditions in the footer.',
+    'Third-party trackers disclosed|medium|Undisclosed trackers detected.|List all trackers in the cookie policy.||GDPR',
+    'Do Not Sell or Share link|medium|No opt-out link for California users.|Add a "Do Not Sell or Share My Personal Information" link.||CCPA',
+    'Global Privacy Control honored|low|The GPC signal is ignored.|Treat GPC as an opt-out request.||CPRA',
+    'Forms submit over HTTPS|high|A form posts to an HTTP endpoint.|Post all forms to HTTPS endpoints.'
+  ],
+  bestpractices: [
+    '*No console errors|medium|JavaScript errors are logged on load.|Fix errors shown in the browser console.|errors-in-console',
+    'Valid HTML doctype|low|Doctype is missing.|Add <!DOCTYPE html>.|doctype',
+    'Charset declared|low|Charset is not declared early.|Put <meta charset="utf-8"> first in the head.|charset',
+    'Favicon present|low|No favicon found.|Add a favicon and apple-touch-icon.',
+    'Correct image aspect ratio|low|Images are displayed stretched.|Set width and height matching the source.|image-aspect-ratio',
+    'No document.write|low|document.write is used.|Replace with DOM APIs.|no-document-write',
+    'Passive event listeners|low|Scroll listeners are not passive.|Add { passive: true } to scroll listeners.|uses-passive-event-listeners',
+    'No geolocation request on load|low|Location is requested on page load.|Request location only after a user action.|geolocation-on-start',
+    'No notification prompt on load|low|Notification permission is requested on load.|Prompt only after a user action.|notification-on-start',
+    'Source maps not public|low|Production source maps are exposed.|Restrict .map files in production.'
+  ],
+  infra: [
+    'DNS resolves under 100ms|low|DNS lookup is slow.|Use a fast anycast DNS provider.',
+    'HTTP/2 or HTTP/3|medium|Page is served over HTTP/1.1.|Enable HTTP/2 or HTTP/3 on the server or CDN.|uses-http2',
+    'IPv6 supported|low|No AAAA record.|Enable IPv6 at the CDN.',
+    'CDN detected|medium|Static assets are not served from a CDN.|Put a CDN in front of static assets.',
+    '*Server response under 600ms|high|Time to first byte exceeds 600ms.|Add caching and tune the application server.',
+    'Keep-alive enabled|low|Connections close after each request.|Enable HTTP keep-alive.',
+    'www and non-www consolidated|low|Both hostnames serve content.|301-redirect one hostname to the other.',
+    '*Host reachable|critical|Host did not respond.|Check DNS, firewall and server health.'
+  ],
+  analytics: [
+    'GA4 tag present|medium|No GA4 measurement ID found.|Install GA4 through Google Tag Manager.',
+    'Tag manager container|low|No tag manager detected.|Manage tags in a tag manager.',
+    'No duplicate tags|medium|The analytics tag fires twice.|Remove the hard-coded duplicate tag.',
+    'Ecommerce events tracked|medium|add_to_cart and purchase events are missing.|Implement GA4 ecommerce events.',
+    'Consent Mode configured|medium|Google Consent Mode is not set.|Enable Consent Mode v2.',
+    'Search Console verified|low|No verification tag found.|Verify the domain in Search Console.'
+  ],
+  storefront: [
+    'Site search returns results|critical|Search for a common term returns nothing.|Check the search index and synonyms.',
+    'Search autocomplete|low|No type-ahead suggestions.|Enable autocomplete on the search box.',
+    'Category page with filters|high|Category page or facets fail to load.|Check the category API and facet configuration.',
+    'Product detail page|critical|Product page errors or specs are missing.|Fix the product template and data feed.',
+    'Customer-specific pricing|high|Account pricing is not shown after login.|Verify the pricing service integration.',
+    'Quick order by SKU|medium|Part-number entry does not add items.|Check the quick-order endpoint.',
+    'Add to cart|critical|Add-to-cart request fails.|Inspect cart API errors.',
+    'Cart quantity update|high|Totals do not recalculate.|Fix cart recalculation logic.',
+    'Checkout reachable|critical|Checkout page errors.|Check the checkout service and payment configuration.',
+    'Shipping options load|high|No shipping methods returned.|Verify the carrier integration.',
+    'Account login|high|Login form returns an error.|Check the auth service and session cookies.',
+    'Order history|medium|Order history is empty or errors.|Check ERP order sync.',
+    'Saved lists and reorder|low|Reorder from a saved list fails.|Check the saved-list service.',
+    'Inventory availability shown|medium|Stock status is missing on product pages.|Verify the inventory feed.'
+  ]
+};
+const TESTS = [];
+METRICS.forEach((m, i) => TESTS.push({ key: 'performance:m' + i, cat: 'performance', name: m.name, sev: m.sev, fail: m.name + ' is above the recommended threshold.', fix: 'See Lighthouse opportunities for this metric.', lh: m.lh, ref: m.ref, quick: !!m.quick, metric: m }));
+Object.entries(RAW).forEach(([cat, arr]) => arr.forEach((line, i) => {
+  let quick = false; if (line[0] === '*') { quick = true; line = line.slice(1); }
+  const [name, sev, fail, fix, lh, ref] = line.split('|');
+  TESTS.push({ key: cat + ':' + i, cat, name, sev, fail, fix, lh: lh || null, ref: ref || '', quick });
+}));
+const TEST_BY = Object.fromEntries(TESTS.map(t => [t.key, t]));
+const ALL = CATS.map(c => c.id);
+const SCAN_TYPES = [
+  { id: 'comprehensive', name: 'Comprehensive', cats: ALL },
+  { id: 'quick', name: 'Quick', cats: ['performance', 'security', 'accessibility', 'seo', 'mobile', 'bestpractices', 'links', 'infra'], quick: true },
+  { id: 'performance', name: 'Performance & network', cats: ['performance', 'infra'] },
+  { id: 'security', name: 'Security & privacy', cats: ['security', 'privacy'] },
+  { id: 'accessibility', name: 'Accessibility (WCAG 2.2)', cats: ['accessibility'] },
+  { id: 'seo', name: 'SEO & links', cats: ['seo', 'links', 'analytics'] },
+  { id: 'mobile', name: 'Mobile & cross-browser', cats: ['mobile', 'browsers'] },
+  { id: 'storefront', name: 'B2B storefront flow', cats: ['storefront', 'performance'] },
+  { id: 'custom', name: 'Custom', cats: null }
+];
+const TYPE_BY = Object.fromEntries(SCAN_TYPES.map(t => [t.id, t]));
+const DEVICES = [{ id: 'desktop', label: 'Desktop' }, { id: 'mobile', label: 'Mobile' }, { id: 'tablet', label: 'Tablet' }, { id: 'all', label: 'All devices' }];
+const BROWSERS = ['Chrome', 'Safari', 'Firefox', 'Edge', 'Samsung'];
+const STAGES = ['Resolving DNS', 'Opening TLS connection', 'Loading page', 'Measuring Core Web Vitals', 'Checking security headers', 'Auditing WCAG 2.2', 'Crawling links', 'Validating SEO and schema', 'Checking privacy and consent', 'Rendering across browsers', 'Walking storefront flow', 'Compiling report'];
+const SEV = {
+  critical: { label: 'CRITICAL', name: 'Critical', bg: '#FDE6EA', fg: '#B00020', dot: '#D80027' },
+  high: { label: 'HIGH', name: 'High', bg: '#FEF3DC', fg: '#8A5A00', dot: '#F9AC06' },
+  medium: { label: 'MEDIUM', name: 'Medium', bg: '#EEF0FF', fg: '#4343B8', dot: '#5B5BD6' },
+  low: { label: 'LOW', name: 'Low', bg: '#E2F6EC', fg: '#0E7A48', dot: '#18B26B' }
+};
+const SEV_ORDER = ['critical', 'high', 'medium', 'low'];
+const DOWN = { critical: 'high', high: 'medium', medium: 'low', low: 'low' };
+const BADGE = { pass: ['Pass', '#E2F6EC', '#0E7A48'], warn: ['Warning', '#FEF3DC', '#8A5A00'], fail: ['Fail', '#FDE6EA', '#B00020'], na: ['Not measured', '#F1F5F9', '#64748B'] };
+const bdg = s => ({ label: BADGE[s][0], bg: BADGE[s][1], fg: BADGE[s][2] });
+const FREQS = [{ id: '300000', label: 'Every 5 minutes' }, { id: '900000', label: 'Every 15 minutes' }, { id: '3600000', label: 'Hourly' }, { id: '86400000', label: 'Daily' }, { id: '604800000', label: 'Weekly' }];
+const HKEY = 'urltester.history.v2', SKEY = 'urltester.schedules.v1', KKEY = 'urltester.psikey', SRCKEY = 'urltester.source';
+const NAV = [
+  { id: 'dashboard', label: 'Dashboard', icon: 'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z' },
+  { id: 'scanner', label: 'Scanner', icon: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.3-4.3' },
+  { id: 'bulk', label: 'Bulk Scan', icon: 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01' },
+  { id: 'compare', label: 'Compare', icon: 'M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7' },
+  { id: 'monitor', label: 'Uptime Monitor', icon: 'M22 12h-4l-3 9L9 3l-3 9H2' },
+  { id: 'schedules', label: 'Schedules', icon: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 6v6l4 2' },
+  { id: 'catalog', label: 'Test Catalog', icon: 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zM20 17v5H6.5A2.5 2.5 0 0 1 4 19.5' }
+];
+
+let API = (() => { const ok = o => o && o !== 'null' && /^https?:\/\//.test(o) ? o : null; try { for (const w of [window, window.parent, window.top]) { const o = ok(w.location.origin); if (o) return o; } } catch (e) {} try { const o = ok(new URL(document.referrer).origin); if (o) return o; } catch (e) {} return 'http://localhost:8080'; })();
+function hashStr(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function rng(seed) { let a = seed; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+function scoreColor(s) { return s >= 85 ? '#18B26B' : s >= 70 ? '#5B5BD6' : s >= 50 ? '#F9AC06' : '#D80027'; }
+function grade(s) {
+  if (s >= 85) return ['Excellent', 'Maintain the current level and re-scan after each release.'];
+  if (s >= 70) return ['Good', 'A few targeted fixes will move this page into the excellent range.'];
+  if (s >= 50) return ['Fair', 'Significant work is needed. Start with critical and high findings.'];
+  return ['Poor', 'Critical issues are affecting customers. Prioritize fixes now.'];
+}
+function hostOf(u) { try { return new URL(u).hostname; } catch (e) { return u; } }
+function fmtBytes(n) { return n < 1048576 ? Math.round(n / 1024) + ' KB' : (n / 1048576).toFixed(2) + ' MB'; }
+function fmtMetric(m, v) { return m.unit === 's' ? v.toFixed(2) + ' s' : m.unit === 'ms' ? Math.round(v) + ' ms' : v.toFixed(3); }
+function metricStatus(m, v) { return v <= m.good ? 'pass' : v <= m.poor ? 'warn' : 'fail'; }
+function uid() { return 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function testsFor(typeId, customCats) {
+  const t = TYPE_BY[typeId] || TYPE_BY.comprehensive;
+  const cats = t.id === 'custom' ? customCats : t.cats;
+  return TESTS.filter(x => cats.includes(x.cat) && (!t.quick || x.quick));
+}
+function typeLabel(id, customCats) { const t = TYPE_BY[id]; return t ? `${t.name} (${testsFor(id, customCats || []).length} tests)` : id; }
+function summarize(rep) {
+  const byCat = {};
+  rep.tests.forEach(t => { const c = TEST_BY[t.k]; if (!c) return; const o = byCat[c.cat] || (byCat[c.cat] = { pass: 0, warn: 0, fail: 0, na: 0, total: 0 }); if (t.s === 'na') { o.na++; return; } o[t.s]++; o.total++; });
+  rep.categories = CATS.filter(c => byCat[c.id]).map(c => { const o = byCat[c.id]; return { id: c.id, ...o, score: o.total ? Math.round((o.pass + o.warn * 0.5) / o.total * 100) : null }; });
+  const sc = rep.categories.filter(c => c.score != null);
+  rep.overall_score = sc.length ? Math.round(sc.reduce((a, c) => a + c.score, 0) / sc.length) : 0;
+  return rep;
+}
+
+function simReport(url, typeId, customCats, device, browsers) {
+  const r = rng(hashStr(url + '|' + device));
+  const pen = { mobile: 6, tablet: 3, all: 4 }[device] || 0;
+  const base = {};
+  CATS.forEach(c => base[c.id] = clamp(Math.round(62 + r() * 38 - ((c.id === 'performance' || c.id === 'mobile') ? pen : 0)), 35, 100));
+  const list = testsFor(typeId, customCats);
+  let brokenN = 0;
+  const tests = list.map(t => {
+    const q = base[t.cat] / 100, tr = rng(hashStr(url + device + t.key));
+    if (t.metric) {
+      const m = t.metric, k = (1 - q) * 1.6;
+      const v = m.base + k * m.spread * (0.6 + tr() * 0.5) + tr() * m.spread * 0.08;
+      return { k: t.key, s: metricStatus(m, v), v: fmtMetric(m, v), n: +v.toFixed(3), l: false };
+    }
+    const x = tr();
+    const s = x < (1 - q) * 0.55 ? 'fail' : x < (1 - q) * 1.15 ? 'warn' : 'pass';
+    let v = '';
+    if (t.cat === 'storefront') v = Math.round(250 + tr() * 700 + (s !== 'pass' ? 1300 : 0)) + ' ms';
+    if (t.key === 'links:0') { brokenN = s === 'fail' ? 3 + Math.floor(tr() * 4) : s === 'warn' ? 1 + Math.floor(tr() * 2) : 0; v = brokenN + ' found'; }
+    if (t.key === 'security:1') v = (s === 'pass' ? 60 + Math.floor(tr() * 300) : s === 'warn' ? 30 + Math.floor(tr() * 30) : 5 + Math.floor(tr() * 20)) + ' days';
+    return { k: t.key, s, v, l: false };
+  });
+  const cats = [...new Set(list.map(t => t.cat))];
+  let weight = null;
+  if (cats.includes('performance')) {
+    const wm = 1 + (1 - base.performance / 100) * 1.6;
+    weight = [['Script', 420, 18], ['Image', 780, 34], ['Stylesheet', 120, 6], ['Font', 160, 5], ['Document', 48, 1], ['Other', 60, 9]].map(([label, kb, n]) => ({ label, bytes: Math.round(kb * wm * (0.7 + r() * 0.6) * 1024), count: Math.max(1, Math.round(n * (0.7 + r() * 0.8))) }));
+  }
+  const host = hostOf(url);
+  const PATHS = ['/products/legacy-valve-kit', '/brands/acme-supply', '/catalog/2023.pdf', '/support/returns', '/blog/winter-hvac-tips', '/category/fittings?page=9', '/promo/spring-sale', '/docs/spec-sheet-4471.pdf'];
+  const broken = Array.from({ length: brokenN }, (_, i) => ({ url: 'https://' + host + PATHS[(i * 3 + Math.floor(r() * 8)) % 8], status: [404, 404, 404, 410, 500, 503][Math.floor(r() * 6)], from: ['/', '/products', '/category/plumbing', '/about', '/blog'][Math.floor(r() * 5)] }));
+  const devs = ['Desktop', 'Tablet', 'Mobile'];
+  const matrix = devs.map(d => ({ device: d, cells: browsers.map(b => ({ browser: b, score: clamp(Math.round(base.browsers - (d === 'Mobile' ? 6 : d === 'Tablet' ? 3 : 0) - (b === 'Safari' ? 5 * r() : b === 'Samsung' ? 7 * r() : 0) + (r() - 0.5) * 10), 30, 100) })) }));
+  return summarize({ id: uid(), url, scanType: typeId, customCats: customCats || [], device, browsers, source: 'sim', timestamp: new Date().toISOString(), tests, weight, broken, matrix, liveCount: 0 });
+}
+
+async function liveReport(url, typeId, customCats, device, browsers, key) {
+  const rep = simReport(url, typeId, customCats, device, browsers);
+  const strategy = device === 'mobile' ? 'mobile' : 'desktop';
+  const q = new URLSearchParams({ url, strategy });
+  ['performance', 'accessibility', 'best-practices', 'seo'].forEach(c => q.append('category', c));
+  if (key) q.set('key', key);
+  const res = await fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?' + q.toString());
+  const data = await res.json();
+  if (!res.ok || data.error) throw new Error((data.error && data.error.message) || ('PageSpeed API error ' + res.status));
+  const lh = data.lighthouseResult, A = lh.audits;
+  const field = (data.loadingExperience && data.loadingExperience.metrics) || {};
+  let live = 0;
+  rep.tests = rep.tests.map(t => {
+    const c = TEST_BY[t.k];
+    if (c.metric) {
+      const m = c.metric; let v = null;
+      if (m.lh && A[m.lh] && A[m.lh].numericValue != null) v = A[m.lh].numericValue / m.div;
+      else if (m.field && field[m.field]) v = field[m.field].percentile;
+      if (v == null) return t;
+      live++; return { k: t.k, s: metricStatus(m, v), v: fmtMetric(m, v), n: +v.toFixed(3), l: true };
+    }
+    if (c.key === 'infra:7') { live++; return { k: t.k, s: 'pass', v: 'Responded', l: true }; }
+    const a = c.lh && A[c.lh];
+    if (!a || a.score == null || ['manual', 'notApplicable'].includes(a.scoreDisplayMode)) return t;
+    live++;
+    return { k: t.k, s: a.score >= 0.9 ? 'pass' : a.score >= 0.5 ? 'warn' : 'fail', v: a.displayValue || '', l: true };
+  });
+  rep.tests = rep.tests.map(t => t.l ? t : { k: t.k, s: 'na', v: 'Needs the local server', l: false }); rep.broken = []; rep.matrix = [];
+  const rs = A['resource-summary'] && A['resource-summary'].details && A['resource-summary'].details.items;
+  const hadW = !!rep.weight; rep.weight = null; if (rs && hadW) rep.weight = rs.filter(i => !['total', 'third-party'].includes(i.resourceType) && i.transferSize > 0).map(i => ({ label: i.label, bytes: i.transferSize, count: i.requestCount }));
+  const shot = A['final-screenshot'] && A['final-screenshot'].details && A['final-screenshot'].details.data;
+  rep.screenshot = shot || null; rep.source = 'live'; rep.liveCount = live; rep.strategy = strategy;
+  return summarize(rep);
+}
+
+async function serverReport(url, typeId, customCats, device, browsers, key) {
+  const q = new URLSearchParams({ url, device }); if (key) q.set('psiKey', key);
+  let res;
+  try { res = await fetch(API + '/api/scan?' + q.toString()); } catch (e) { throw new Error('Local server not reachable at ' + API + '.'); }
+  const d = await res.json();
+  if (!res.ok || d.error) throw new Error(d.error || ('Server error ' + res.status));
+  const list = testsFor(typeId, customCats);
+  const tests = list.map(t => { const x = d.tests[t.key]; return x ? { k: t.key, s: x.s, v: x.v || '', n: x.n, l: x.s !== 'na', src: x.src } : { k: t.key, s: 'na', v: '', l: false }; });
+  return summarize({ id: uid(), url: d.finalUrl || url, scanType: typeId, customCats: customCats || [], device, browsers, source: 'server', timestamp: new Date().toISOString(), tests, weight: list.some(t => t.cat === 'performance') ? d.weight : null, broken: d.broken || [], matrix: d.matrix || [], matrixHead: d.matrixHead || null, shots: d.shots || null, screenshot: null, liveCount: tests.filter(t => t.l).length, engines: d.engines, notes: d.notes || [] });
+}
+
+function hydrate(rep) { return rep.tests.map(t => TEST_BY[t.k] ? { ...TEST_BY[t.k], status: t.s, value: t.v, num: t.n, live: t.l, src: t.src || (t.l ? (rep.source === 'live' ? 'LIGHTHOUSE' : 'MEASURED') : '') } : null).filter(Boolean); }
+function findingsOf(hyd) {
+  return hyd.filter(t => t.status !== 'pass' && t.status !== 'na').map(t => ({
+    severity: t.status === 'fail' ? t.sev : DOWN[t.sev], category: CAT_BY[t.cat].label, ref: t.ref, title: t.name,
+    description: t.live && t.value ? t.fail + ' Measured: ' + t.value + '.' : t.fail + (t.value ? ' (' + t.value + ')' : ''), fix: t.fix
+  })).sort((a, b) => SEV_ORDER.indexOf(a.severity) - SEV_ORDER.indexOf(b.severity));
+}
+function download(name, content, mime) { const blob = new Blob([content], { type: mime }); const u = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = u; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(u), 1000); }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function csvCell(v) { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+function reportHtml(rep) {
+  const hyd = hydrate(rep), f = findingsOf(hyd);
+  const cats = rep.categories.map(c => `<tr><td>${CAT_BY[c.id].label}</td><td>${c.pass} / ${c.warn} / ${c.fail}</td><td style="text-align:right;font-weight:600;color:${scoreColor(c.score)}">${c.score}</td></tr>`).join('');
+  const iss = f.map(i => `<div style="border:1px solid #e5e5e5;border-radius:10px;padding:12px 14px;margin:8px 0"><span style="font-size:11px;font-weight:600;letter-spacing:.08em;padding:3px 8px;border-radius:5px;background:${SEV[i.severity].bg};color:${SEV[i.severity].fg}">${SEV[i.severity].label}</span> <strong>${esc(i.title)}</strong> <span style="color:#94A3B8;font-size:12px">${i.category} ${esc(i.ref)}</span><p style="margin:6px 0;color:#64748B">${esc(i.description)}</p><p style="margin:0;color:#3730A3"><strong>Fix:</strong> ${esc(i.fix)}</p></div>`).join('');
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Site Check Report</title><style>body{font-family:'IBM Plex Sans',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:40px 24px;color:#0F172A}table{width:100%;border-collapse:collapse}td{padding:8px 0;border-bottom:1px solid #eee}</style></head><body><div style="font-size:12px;font-weight:600;letter-spacing:.16em;color:#5B5BD6">ANIL'S 1ST AI PROJECT · SITE CHECK</div><h1 style="margin:4px 0">Scan Report</h1><p style="color:#64748B">${esc(rep.url)}<br>${typeLabel(rep.scanType, rep.customCats)} · ${rep.device} · ${rep.source === 'sim' ? 'Demo data' : 'Measured (' + rep.liveCount + ' tests)'} · ${new Date(rep.timestamp).toLocaleString()}</p><h2>Overall score: <span style="color:${scoreColor(rep.overall_score)}">${rep.overall_score}/100</span></h2><table><tr><td><strong>Category</strong></td><td><strong>Pass / Warn / Fail</strong></td><td style="text-align:right"><strong>Score</strong></td></tr>${cats}</table><h2>Findings (${f.length})</h2>${iss || '<p>No findings.</p>'}</body></html>`;
+}
+function rel(ts, now) {
+  const d = ts - now, a = Math.abs(d), m = Math.round(a / 60000);
+  const txt = m < 1 ? 'less than a minute' : m < 60 ? m + ' min' : m < 1440 ? Math.round(m / 60) + ' h' : Math.round(m / 1440) + ' d';
+  return d > 0 ? 'in ' + txt : (m < 1 ? 'due now' : txt + ' ago');
+}
+
+class Component extends DCLogic {
+  state = {
+    view: 'dashboard', url: 'https://www.example.com', scanType: 'comprehensive', customCats: ['performance', 'security', 'accessibility'], device: 'desktop', browsers: ['Chrome', 'Safari', 'Edge'],
+    source: 'sim', apiKey: '', scanning: false, progress: 0, stage: '', report: null, error: '', tab: 'overview', sev: 'all', issuesOnly: false, allIssues: false, shotNonce: 0,
+    history: [], bulkText: '', sitemapUrl: '', sitemapNote: '', bulk: [], bulkRunning: false,
+    cmpA: '', cmpB: '', monUrl: 'https://www.example.com', monInterval: '15', monRunning: false, samples: [],
+    serverUp: false, engines: null, schedules: [], schUrl: '', schFreq: '86400000', schType: 'quick', now: Date.now(), openCat: 'performance'
+  };
+  resultsRef = React.createRef();
+
+  componentDidMount() {
+    const get = (k, d) => { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } };
+    const saved = get(SRCKEY, null);
+    this.setState({ history: get(HKEY, []), schedules: get(SKEY, []), apiKey: get(KKEY, ''), source: saved || 'sim' });
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 2500);
+    const probe = base => fetch(base + '/api/health', { signal: ctl.signal }).then(r => { if (!r.ok) throw 0; return r.json(); }).then(d => { if (!d || !d.ok) throw 0; API = base; return d; });
+    probe(API).catch(() => API === 'http://localhost:8080' ? Promise.reject() : probe('http://localhost:8080')).then(d => { this.setState({ serverUp: true, engines: d }); if (!saved || saved === 'sim') this.setState({ source: 'server' }); }).catch(() => this.setState({ serverUp: false }));
+    this.tick = setInterval(() => { this.setState({ now: Date.now() }); this.runDueSchedules(); }, 15000);
+  }
+  componentWillUnmount() { this.dead = true; clearInterval(this.tick); clearInterval(this.monTimer); clearInterval(this.progTimer); }
+  persist(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  stripShot(rep) { const { screenshot, shots, ...rest } = rep; return rest; }
+  addHistory(reps) {
+    this.setState(st => { const history = [...reps.map(r => this.stripShot(r)), ...st.history].slice(0, 40); this.persist(HKEY, history); return { history }; });
+  }
+  normUrl(u) {
+    u = (u || '').trim(); if (!u) return null;
+    if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+    try { const x = new URL(u); if (!x.hostname.includes('.')) return null; return x.href; } catch (e) { return null; }
+  }
+  async makeReport(url, typeId) {
+    const s = this.state;
+    if (s.source === 'server') return serverReport(url, typeId, s.customCats, s.device, s.browsers, s.apiKey.trim());
+    if (s.source === 'live') return liveReport(url, typeId, s.customCats, s.device, s.browsers, s.apiKey.trim());
+    return simReport(url, typeId, s.customCats, s.device, s.browsers);
+  }
+  scrollToResults() {
+    setTimeout(() => { const el = this.resultsRef.current; if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 24, behavior: 'smooth' }); }, 80);
+  }
+
+  startScan = async () => {
+    const s = this.state; if (s.scanning) return;
+    const url = this.normUrl(s.url);
+    if (!url) return this.setState({ error: 'Enter a valid URL, e.g. https://www.example.com' });
+    if (!s.browsers.length) return this.setState({ error: 'Select at least one browser.' });
+    if (s.scanType === 'custom' && !s.customCats.length) return this.setState({ error: 'Select at least one test category.' });
+    this.setState({ url, error: '', scanning: true, progress: 0, report: null, sev: 'all', tab: 'overview', allIssues: false });
+    let i = 0;
+    const live = s.source !== 'sim';
+    this.progTimer = setInterval(() => {
+      i++;
+      const p = live ? Math.min(94, Math.round(i * 3.2)) : Math.min(100, Math.round(i / STAGES.length * 100));
+      this.setState({ progress: p, stage: STAGES[Math.min(STAGES.length - 1, Math.floor(p / 100 * STAGES.length))] + '…' });
+    }, live ? 700 : 230);
+    try {
+      const [rep] = await Promise.all([this.makeReport(url, s.scanType), new Promise(r => setTimeout(r, live ? 0 : STAGES.length * 230 + 100))]);
+      if (this.dead) return;
+      clearInterval(this.progTimer);
+      this.setState({ scanning: false, report: rep, progress: 100 });
+      this.addHistory([rep]);
+      this.scrollToResults();
+    } catch (e) {
+      clearInterval(this.progTimer);
+      this.setState({ scanning: false, error: (s.source === 'server' ? 'Server scan failed: ' + e.message + ' Start it with "npm start" in the server folder.' : 'Lighthouse scan failed: ' + e.message + ' Add an API key or use the local server.') });
+    }
+  };
+
+  runBulk = async () => {
+    const s = this.state; if (s.bulkRunning) return;
+    const urls = [...new Set(s.bulkText.split(/\s+/).map(u => this.normUrl(u)).filter(Boolean))].slice(0, 50);
+    if (!urls.length) return this.setState({ sitemapNote: 'Add at least one valid URL.' });
+    const typeId = s.scanType === 'custom' ? 'quick' : s.scanType;
+    this.setState({ bulkRunning: true, bulk: urls.map(u => ({ url: u, status: 'queued', rep: null })), sitemapNote: '' });
+    const done = [];
+    for (let i = 0; i < urls.length; i++) {
+      if (this.dead) return;
+      this.setState(st => ({ bulk: st.bulk.map((b, j) => j === i ? { ...b, status: 'scanning' } : b) }));
+      let rep = null, status = 'done';
+      try { rep = await this.makeReport(urls[i], typeId); if (s.source !== 'live') await new Promise(r => setTimeout(r, 350)); } catch (e) { status = 'error'; }
+      if (rep) done.push(rep);
+      this.setState(st => ({ bulk: st.bulk.map((b, j) => j === i ? { ...b, status, rep } : b) }));
+    }
+    this.addHistory(done.reverse());
+    this.setState({ bulkRunning: false });
+  };
+
+  loadSitemap = async () => {
+    const sm = this.normUrl(this.state.sitemapUrl);
+    if (!sm) return this.setState({ sitemapNote: 'Enter a valid sitemap URL.' });
+    try {
+      const txt = await (await fetch(sm)).text();
+      const locs = [...txt.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map(m => m[1]).slice(0, 50);
+      if (!locs.length) throw new Error('no urls');
+      this.setState({ bulkText: locs.join('\n'), sitemapNote: `Loaded ${locs.length} URLs from the sitemap.` });
+    } catch (e) {
+      const o = new URL(sm).origin;
+      const paths = ['/', '/products', '/search?q=valve', '/category/plumbing', '/cart', '/checkout', '/account/login', '/quick-order', '/about', '/contact'];
+      this.setState({ bulkText: paths.map(p => o + p).join('\n'), sitemapNote: 'The sitemap could not be read from the browser (cross-origin). Common storefront paths were added instead; edit as needed.' });
+    }
+  };
+
+  ping = async () => {
+    const url = this.normUrl(this.state.monUrl); if (!url) return;
+    const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 10000);
+    const t0 = performance.now(); let ok = true;
+    try { await fetch(url, { mode: 'no-cors', cache: 'no-store', signal: ctl.signal }); } catch (e) { ok = false; }
+    clearTimeout(to);
+    if (this.dead) return;
+    const ms = Math.round(performance.now() - t0);
+    this.setState(st => ({ samples: [...st.samples, { t: Date.now(), ms, ok }].slice(-60) }));
+  };
+  toggleMonitor = () => {
+    if (this.state.monRunning) { clearInterval(this.monTimer); return this.setState({ monRunning: false }); }
+    const url = this.normUrl(this.state.monUrl); if (!url) return;
+    this.setState({ monRunning: true, monUrl: url, samples: [] });
+    this.ping(); this.monTimer = setInterval(this.ping, (+this.state.monInterval) * 1000);
+  };
+
+  saveSchedules(schedules) { this.setState({ schedules }); this.persist(SKEY, schedules); }
+  runSchedule(id) {
+    const sc = this.state.schedules.find(x => x.id === id); if (!sc) return;
+    const rep = simReport(sc.url, sc.scanType, [], 'desktop', this.state.browsers);
+    this.addHistory([rep]);
+    this.saveSchedules(this.state.schedules.map(x => x.id === id ? { ...x, lastRun: Date.now(), lastScore: rep.overall_score, nextRun: Date.now() + (+x.freq) } : x));
+  }
+  runDueSchedules() { const now = Date.now(); this.state.schedules.filter(x => x.active && x.nextRun <= now).forEach(x => this.runSchedule(x.id)); }
+
+  renderVals() {
+    const s = this.state, H = s.history, now = s.now;
+    const rep = s.report, hyd = rep ? hydrate(rep) : [];
+    const go = v => () => { this.setState({ view: v }); window.scrollTo(0, 0); };
+    const openRep = h => { this.setState({ report: h, view: 'scanner', url: h.url, tab: 'overview', sev: 'all', allIssues: false }); setTimeout(() => this.scrollToResults(), 50); };
+
+    let r = {}, tabs = [], ct = {}, findings = [];
+    if (rep) {
+      const [g, note] = grade(rep.overall_score);
+      findings = findingsOf(hyd);
+      const pc = hyd.filter(t => t.status === 'pass').length, wc = hyd.filter(t => t.status === 'warn').length, fc = hyd.filter(t => t.status === 'fail').length;
+      r = {
+        url: rep.url, overall: rep.overall_score, grade: g, gradeNote: note, ringDeg: Math.round(rep.overall_score * 3.6),
+        meta: (rep.engines ? 'Engines: HTTP/TLS/DNS' + (rep.engines.browser ? ', Browser' : '') + (rep.engines.axe ? ', axe' : '') + (rep.engines.lighthouse ? ', Lighthouse' : '') + (rep.notes && rep.notes.length ? ' · ' + rep.notes.join(' · ') : '') + ' · ' : '') + `${typeLabel(rep.scanType, rep.customCats)} · ${(DEVICES.find(d => d.id === rep.device) || {}).label} · ${rep.browsers.join(', ')} · ${new Date(rep.timestamp).toLocaleString()}`,
+        srcLabel: rep.source === 'sim' ? 'Demo data (not real)' : `${rep.source === 'server' ? 'Measured' : 'Lighthouse'} · ${rep.liveCount} of ${hyd.length} tests`, srcBg: rep.source === 'sim' ? '#FEF3DC' : '#ECFDF5', srcFg: rep.source === 'sim' ? '#8A5A00' : '#047857',
+        passCount: pc, naCount: hyd.filter(t => t.status === 'na').length, warnCount: wc, failCount: fc, issueCount: findings.length,
+        categories: rep.categories.map(c => ({ ...c, score: c.score == null ? 0 : c.score, scoreText: c.score == null ? '—' : c.score, label: CAT_BY[c.id].label, color: c.score == null ? '#CBD5E1' : scoreColor(c.score), open: () => this.setState({ tab: c.id, issuesOnly: false }) }))
+      };
+      const tabDefs = [{ id: 'overview', label: 'Overview', n: 0 }, ...rep.categories.map(c => ({ id: c.id, label: CAT_BY[c.id].label, n: c.fail })), { id: 'devices', label: 'Devices & Browsers', n: 0 }];
+      tabs = tabDefs.map(t => { const on = s.tab === t.id; return { label: t.label, hasBadge: t.n > 0, badge: t.n, badgeBg: '#FDE6EA', badgeFg: '#B00020', fg: on ? '#5B5BD6' : '#64748B', line: on ? '#5B5BD6' : 'transparent', select: () => this.setState({ tab: t.id }) }; });
+      const cat = CAT_BY[s.tab];
+      if (cat) {
+        const list = hyd.filter(t => t.cat === cat.id), cs = rep.categories.find(c => c.id === cat.id) || { score: 0, pass: 0, warn: 0, fail: 0, total: 0 };
+        const liveN = list.filter(t => t.live).length;
+        const ORD = { fail: 0, warn: 1, pass: 2, na: 3 }; const shown = list.filter(t => !s.issuesOnly || (t.status !== 'pass' && t.status !== 'na')).sort((a, b) => ORD[a.status] - ORD[b.status]);
+        const totalW = rep.weight ? rep.weight.reduce((a, w) => a + w.bytes, 0) : 0;
+        const WC = ['#5B5BD6', '#3730A3', '#818CF8', '#4343B8', '#C7D2FE', '#94A3B8', '#0F172A', '#CBD5E1'];
+        ct = {
+          label: cat.label, std: cat.std, score: cs.score == null ? '—' : cs.score, color: cs.score == null ? '#94A3B8' : scoreColor(cs.score), total: cs.total, pass: cs.pass, warn: cs.warn, fail: cs.fail,
+          liveNote: rep.source === 'sim' ? 'demo data' : `${liveN} measured, ${list.length - liveN} not measured`,
+          isPerf: cat.id === 'performance',
+          metrics: list.filter(t => t.metric).map(t => ({ name: t.name, value: t.value, b: bdg(t.status), target: 'Good ≤ ' + fmtMetric(t.metric, t.metric.good) })),
+          hasWeight: cat.id === 'performance' && !!rep.weight,
+          weight: (rep.weight || []).map((w, i) => ({ label: w.label, size: fmtBytes(w.bytes), count: w.count, pct: totalW ? (w.bytes / totalW * 100).toFixed(1) : 0, color: WC[i % WC.length] })),
+          weightTotal: fmtBytes(totalW), weightReqs: (rep.weight || []).reduce((a, w) => a + w.count, 0),
+          hasBroken: cat.id === 'links' && rep.broken && rep.broken.length > 0, broken: rep.broken || [],
+          rows: shown.map(t => ({ name: t.name, ref: t.ref, value: '', b: bdg(t.status), detail: t.status === 'na' ? (t.value || 'Not measured by the current engine.') : t.status === 'pass' ? (t.value || 'Passed') : (t.metric ? 'Measured ' + t.value + '. ' + t.fail : t.fail + (t.value ? ' Found: ' + t.value : '')), showFix: t.status === 'fail' || t.status === 'warn', fix: t.fix, src: rep.source === 'sim' ? 'DEMO' : (t.live ? t.src : 'NOT MEASURED'), srcFg: t.live ? '#5B5BD6' : '#94A3B8' })),
+          empty: shown.length === 0
+        };
+      }
+    }
+    const visible = findings.filter(i => s.sev === 'all' || i.severity === s.sev);
+    const cap = s.allIssues ? visible.length : 12;
+    const filt = (id, label, dot) => { const on = s.sev === id; return { label, dot, count: id === 'all' ? findings.length : findings.filter(i => i.severity === id).length, bg: on ? '#0F172A' : '#fff', fg: on ? '#fff' : '#334155', border: on ? '#0F172A' : 'rgba(0,0,0,0.12)', select: () => this.setState({ sev: id, allIssues: false }) }; };
+
+    const shot = (u, vw, vh, w) => `https://s0.wp.com/mshots/v1/${encodeURIComponent(u)}?w=${w}&h=${Math.round(w * vh / vw)}&vpw=${vw}&vph=${vh}&n=${s.shotNonce}`;
+    const frames = rep && rep.shots ? [['desktop', 'Desktop', '1366 × 800', '1366 / 800', '3 1 320px', '12px', '8px'], ['tablet', 'Tablet', '768 × 1024', '768 / 1024', '1.3 1 180px', '18px', '10px'], ['mobile', 'Mobile', '390 × 844', '390 / 844', '0.9 1 130px', '22px', '8px']].filter(x => rep.shots[x[0]]).map(x => ({ label: x[1], size: x[2], src: rep.shots[x[0]], ratio: x[3], flex: x[4], radius: x[5], pad: x[6], bg: 'url("' + rep.shots[x[0]] + '")' })) : rep ? [
+      ...(rep.screenshot ? [{ label: 'Lighthouse capture', size: rep.strategy, src: rep.screenshot, ratio: rep.strategy === 'mobile' ? '412 / 823' : '1350 / 940', flex: '1 1 160px', radius: '12px', pad: '6px' }] : []),
+      { label: 'Desktop', size: '1280 × 800', src: shot(rep.url, 1280, 800, 800), ratio: '1280 / 800', flex: '3 1 320px', radius: '12px', pad: '8px' },
+      { label: 'Tablet', size: '768 × 1024', src: shot(rep.url, 768, 1024, 480), ratio: '768 / 1024', flex: '1.3 1 180px', radius: '18px', pad: '10px' },
+      { label: 'Mobile', size: '375 × 812', src: shot(rep.url, 375, 812, 375), ratio: '375 / 812', flex: '0.9 1 130px', radius: '22px', pad: '8px' }
+    ].map(x => ({ ...x, bg: 'url("' + x.src + '")' })) : [];
+
+    // dashboard
+    const total = H.length, avg = total ? Math.round(H.reduce((a, h) => a + h.overall_score, 0) / total) : 0;
+    const latestPerSite = Object.values(H.reduce((m, h) => { const k = hostOf(h.url); if (!m[k]) m[k] = h; return m; }, {}));
+    const sevCount = { critical: 0, high: 0, medium: 0, low: 0 };
+    latestPerSite.forEach(h => findingsOf(hydrate(h)).forEach(f => sevCount[f.severity]++));
+
+    // compare
+    const A = H.find(h => h.id === s.cmpA) || H[1], B = H.find(h => h.id === s.cmpB) || H[0];
+    let cmp = {};
+    if (A && B) {
+      const dfmt = (d, invert) => ({ delta: d > 0 ? '+' + d : d < 0 ? '−' + Math.abs(d) : '0', color: d === 0 ? '#94A3B8' : ((d > 0) !== !!invert ? '#0E7A48' : '#B00020') });
+      const ids = [...new Set([...A.categories.map(c => c.id), ...B.categories.map(c => c.id)])];
+      const aT = Object.fromEntries(A.tests.map(t => [t.k, t])), bT = Object.fromEntries(B.tests.map(t => [t.k, t]));
+      const common = Object.keys(aT).filter(k => bT[k] && TEST_BY[k]);
+      const fixed = common.filter(k => aT[k].s !== 'pass' && aT[k].s !== 'na' && bT[k].s === 'pass').map(k => ({ name: TEST_BY[k].name, cat: CAT_BY[TEST_BY[k].cat].label }));
+      const reg = common.filter(k => aT[k].s === 'pass' && bT[k].s !== 'pass' && bT[k].s !== 'na').map(k => ({ name: TEST_BY[k].name, cat: CAT_BY[TEST_BY[k].cat].label }));
+      const metrics = common.filter(k => TEST_BY[k].metric && aT[k].n != null && bT[k].n != null).map(k => { const m = TEST_BY[k].metric, d = bT[k].n - aT[k].n; const dd = m.unit === 'ms' ? Math.round(d) : +d.toFixed(m.unit === 's' ? 2 : 3); const f = dfmt(dd, true); return { label: m.name, a: aT[k].v, b: bT[k].v, delta: f.delta + (m.unit ? ' ' + m.unit : ''), color: f.color }; });
+      const od = dfmt(B.overall_score - A.overall_score);
+      cmp = {
+        a: A.overall_score, b: B.overall_score, delta: od.delta, deltaColor: od.color === '#94A3B8' ? 'rgba(255,255,255,0.7)' : od.color === '#0E7A48' ? '#6FE3A8' : '#FF8A9B',
+        cats: ids.map(id => { const ca = A.categories.find(c => c.id === id), cb = B.categories.find(c => c.id === id); const f = ca && cb && ca.score != null && cb.score != null ? dfmt(cb.score - ca.score) : { delta: '—', color: '#94A3B8' }; return { label: CAT_BY[id].label, a: ca && ca.score != null ? ca.score : '—', b: cb && cb.score != null ? cb.score : '—', ...f }; }),
+        metrics, noMetrics: metrics.length === 0, fixed: fixed.slice(0, 30), reg: reg.slice(0, 30), fixedCount: fixed.length, regCount: reg.length
+      };
+    }
+
+    // monitor
+    const smp = s.samples, okS = smp.filter(x => x.ok), maxMs = Math.max(1, ...smp.map(x => x.ms));
+    const avgMs = okS.length ? Math.round(okS.reduce((a, x) => a + x.ms, 0) / okS.length) : 0;
+    const last = smp[smp.length - 1];
+
+    const curList = testsFor(s.scanType, s.customCats);
+    return {
+      totalTests: TESTS.length, catCount: CATS.length,
+      navItems: NAV.map(n => { const on = s.view === n.id; return { ...n, go: go(n.id), bg: on ? '#EEF0FF' : 'transparent', fg: on ? '#3F3FB5' : '#475569', iconColor: on ? '#5B5BD6' : '#94A3B8' }; }),
+      sourceOpts: [['server', 'Server'], ['live', 'Lighthouse'], ['sim', 'Demo']].map(([id, label]) => { const on = s.source === id; return { label, bg: on ? '#5B5BD6' : 'transparent', fg: on ? '#fff' : '#475569', select: () => { this.setState({ source: id }); this.persist(SRCKEY, id); } }; }),
+      sourceNote: s.source === 'server' ? (s.serverUp ? 'Local server connected' + (s.engines && s.engines.browser ? ' · browser + axe engines on' : ' · browser engine off (npm run setup)') + '. All results are measured.' : 'Local server not detected. Run "npm start" in the server folder, then reload.') : s.source === 'live' ? 'About 55 tests measured by Google PageSpeed. Others show as Not measured.' : 'Demo data only. Results are generated, not measured.',
+      isDashboard: s.view === 'dashboard', isScanner: s.view === 'scanner', isBulk: s.view === 'bulk', isCompare: s.view === 'compare', isMonitor: s.view === 'monitor', isSchedules: s.view === 'schedules', isCatalog: s.view === 'catalog',
+      goScanner: go('scanner'),
+      stats: [
+        { label: 'Total scans', value: total, sub: 'Stored in this browser' },
+        { label: 'Average score', value: total ? avg : '—', sub: 'Across all scans' },
+        { label: 'Pass rate', value: total ? Math.round(H.filter(h => h.overall_score >= 70).length / total * 100) + '%' : '—', sub: 'Scans scoring 70 or above' },
+        { label: 'Sites tested', value: latestPerSite.length, sub: 'Unique hostnames' }
+      ],
+      trend: H.slice(0, 14).reverse().map(h => ({ score: h.overall_score, h: Math.max(4, h.overall_score), color: scoreColor(h.overall_score), date: new Date(h.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' }), title: h.url })),
+      sevTotals: SEV_ORDER.map(k => ({ label: SEV[k].name, dot: SEV[k].dot, count: sevCount[k] })),
+      hasHistory: total > 0, noHistory: total === 0,
+      historyRows: H.slice(0, 40).map(h => ({ url: h.url, type: typeLabel(h.scanType, h.customCats), device: (DEVICES.find(d => d.id === h.device) || {}).label || h.device, source: h.source === 'live' ? 'Live' : 'Simulated', date: new Date(h.timestamp).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }), score: h.overall_score, color: scoreColor(h.overall_score), open: () => openRep(h) })),
+      clearHistory: () => { this.setState({ history: [] }); this.persist(HKEY, []); },
+
+      url: s.url, error: s.error, urlBorder: s.error ? '#DC2626' : '#CBD5E1',
+      onUrl: e => this.setState({ url: e.target.value, error: '' }), onKey: e => { if (e.key === 'Enter') this.startScan(); },
+      scanTypes: SCAN_TYPES.map(t => ({ id: t.id, label: typeLabel(t.id, s.customCats) })),
+      scanTypesNoCustom: SCAN_TYPES.filter(t => t.id !== 'custom').map(t => ({ id: t.id, label: typeLabel(t.id) })),
+      scanType: s.scanType, onScanType: e => this.setState({ scanType: e.target.value }),
+      isCustom: s.scanType === 'custom',
+      customChips: CATS.map(c => { const on = s.customCats.includes(c.id); return { label: c.label, count: TESTS.filter(t => t.cat === c.id).length, bg: on ? '#5B5BD6' : 'transparent', fg: on ? '#fff' : '#334155', border: on ? '#5B5BD6' : '#CBD5E1', toggle: () => this.setState(st => ({ customCats: on ? st.customCats.filter(x => x !== c.id) : [...st.customCats, c.id] })) }; }),
+      devices: DEVICES, device: s.device, onDevice: e => this.setState({ device: e.target.value }),
+      browserChips: BROWSERS.map(b => { const on = s.browsers.includes(b); return { label: b, bg: on ? '#5B5BD6' : 'transparent', fg: on ? '#fff' : '#334155', border: on ? '#5B5BD6' : '#CBD5E1', toggle: () => this.setState(st => ({ browsers: on ? st.browsers.filter(x => x !== b) : [...st.browsers, b], error: '' })) }; }),
+      isLive: s.source !== 'sim', apiKey: s.apiKey, onApiKey: e => { this.setState({ apiKey: e.target.value }); this.persist(KKEY, e.target.value); },
+      testCountLabel: `${curList.length} tests across ${new Set(curList.map(t => t.cat)).size} categories · ${s.browsers.length} browser${s.browsers.length === 1 ? '' : 's'} · ${s.source === 'server' ? (s.serverUp ? 'measured by local server' : 'local server not running') : s.source === 'live' ? curList.filter(t => t.lh || (t.metric && t.metric.field)).length + ' via Lighthouse' : 'demo data'}`,
+      scanning: s.scanning, progressPct: s.progress, stageText: s.stage,
+      scanBtnLabel: s.scanning ? 'Scanning…' : 'Start Scan', scanBtnBg: s.scanning ? '#A5A5EC' : '#5B5BD6', startScan: this.startScan,
+      hasReport: !!rep, r, resultsRef: this.resultsRef, tabs,
+      isOverview: !!rep && s.tab === 'overview', isCatTab: !!rep && !!CAT_BY[s.tab], isDevices: !!rep && s.tab === 'devices', ct,
+      toggleIssuesOnly: () => this.setState(st => ({ issuesOnly: !st.issuesOnly })), issuesOnlyBg: s.issuesOnly ? '#0F172A' : '#fff', issuesOnlyFg: s.issuesOnly ? '#fff' : '#334155',
+      sevFilters: [filt('all', 'All', '#94A3B8'), ...SEV_ORDER.map(k => filt(k, SEV[k].name, SEV[k].dot))],
+      visibleIssues: visible.slice(0, cap).map(i => ({ ...i, ref: i.ref ? ' · ' + i.ref : '', sevLabel: SEV[i.severity].label, sevBg: SEV[i.severity].bg, sevFg: SEV[i.severity].fg })),
+      moreIssues: visible.length > cap, issueTotal: visible.length, showAllIssues: () => this.setState({ allIssues: true }),
+      noIssues: !!rep && visible.length === 0,
+      frames, refreshShots: () => this.setState(st => ({ shotNonce: st.shotNonce + 1 })),
+      matrixHead: rep ? (rep.matrixHead || rep.browsers) : [],
+      matrix: rep ? rep.matrix.map(row => ({ device: row.device, cells: row.cells.map(c => c.label ? ({ score: c.label, bg: c.ok === true ? '#E2F6EC' : c.ok === false ? '#FDE6EA' : '#F1F5F9', fg: c.ok === true ? '#0E7A48' : c.ok === false ? '#B00020' : '#64748B' }) : ({ score: c.score, bg: c.score >= 85 ? '#E2F6EC' : c.score >= 70 ? '#EEF0FF' : c.score >= 50 ? '#FEF3DC' : '#FDE6EA', fg: c.score >= 85 ? '#0E7A48' : c.score >= 70 ? '#4343B8' : c.score >= 50 ? '#8A5A00' : '#B00020' })) })) : [],
+      exportJson: () => rep && download(`SiteReport_${hostOf(rep.url)}.json`, JSON.stringify({ ...rep, tests: hyd.map(t => ({ category: CAT_BY[t.cat].label, test: t.name, reference: t.ref, status: t.status, value: t.value, live: !!t.live, fix: t.status !== 'pass' ? t.fix : '' })) }, null, 2), 'application/json'),
+      exportCsv: () => rep && download(`SiteReport_${hostOf(rep.url)}.csv`, ['Category,Test,Reference,Status,Value,Source,Fix', ...hyd.map(t => [CAT_BY[t.cat].label, t.name, t.ref, t.status, t.value, t.status === 'na' ? 'Not measured' : t.live ? t.src : 'Demo', t.status !== 'pass' ? t.fix : ''].map(csvCell).join(','))].join('\n'), 'text/csv'),
+      exportHtml: () => rep && download(`SiteReport_${hostOf(rep.url)}.html`, reportHtml(rep), 'text/html'),
+      printReport: () => { if (!rep) return; const w = window.open('', '', 'width=900,height=700'); if (!w) return; w.document.write(reportHtml(rep)); w.document.close(); setTimeout(() => w.print(), 250); },
+
+      bulkText: s.bulkText, onBulkText: e => this.setState({ bulkText: e.target.value }),
+      sitemapUrl: s.sitemapUrl, onSitemap: e => this.setState({ sitemapUrl: e.target.value }), loadSitemap: this.loadSitemap, sitemapNote: s.sitemapNote,
+      runBulk: this.runBulk, bulkRunning: s.bulkRunning, bulkBtnLabel: s.bulkRunning ? `Scanning ${s.bulk.filter(b => b.status === 'done' || b.status === 'error').length + 1} of ${s.bulk.length}…` : 'Run Bulk Scan',
+      hasBulk: s.bulk.length > 0,
+      bulkRows: s.bulk.map(b => { const c = id => { const x = b.rep && b.rep.categories.find(k => k.id === id); return x && x.score != null ? x.score : '—'; }; return { url: b.url, score: b.rep ? b.rep.overall_score : '—', color: b.rep ? scoreColor(b.rep.overall_score) : '#94A3B8', perf: c('performance'), sec: c('security'), a11y: c('accessibility'), seo: c('seo'), issues: b.rep ? findingsOf(hydrate(b.rep)).length : '—', status: { queued: 'Queued', scanning: 'Scanning…', done: 'Done', error: 'Failed' }[b.status], statusFg: { queued: '#94A3B8', scanning: '#5B5BD6', done: '#0E7A48', error: '#B00020' }[b.status], open: () => b.rep && openRep(b.rep) }; }),
+      exportBulkCsv: () => download('BulkScan.csv', ['URL,Score,Performance,Security,Accessibility,SEO,Findings,Status', ...s.bulk.map(b => { const c = id => { const x = b.rep && b.rep.categories.find(k => k.id === id); return x ? x.score : ''; }; return [b.url, b.rep ? b.rep.overall_score : '', c('performance'), c('security'), c('accessibility'), c('seo'), b.rep ? findingsOf(hydrate(b.rep)).length : '', b.status].map(csvCell).join(','); })].join('\n'), 'text/csv'),
+
+      canCompare: H.length >= 2, cannotCompare: H.length < 2,
+      cmpOptions: H.map(h => ({ id: h.id, label: `${hostOf(h.url)} · ${new Date(h.timestamp).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })} · ${h.overall_score}` })),
+      cmpA: A ? A.id : '', cmpB: B ? B.id : '', onCmpA: e => this.setState({ cmpA: e.target.value }), onCmpB: e => this.setState({ cmpB: e.target.value }), cmp,
+
+      monUrl: s.monUrl, onMonUrl: e => this.setState({ monUrl: e.target.value }), monInterval: s.monInterval,
+      onMonInterval: e => { const v = e.target.value; this.setState({ monInterval: v }); if (this.state.monRunning) { clearInterval(this.monTimer); this.monTimer = setInterval(this.ping, (+v) * 1000); } },
+      toggleMonitor: this.toggleMonitor, monBtnLabel: s.monRunning ? 'Stop Monitoring' : 'Start Monitoring', monBtnBg: s.monRunning ? '#D80027' : '#5B5BD6',
+      monStats: [
+        { label: 'Status', value: last ? (last.ok ? 'Up' : 'Down') : '—', color: last ? (last.ok ? '#18B26B' : '#D80027') : '#0F172A' },
+        { label: 'Uptime', value: smp.length ? (okS.length / smp.length * 100).toFixed(1) + '%' : '—', color: '#0F172A' },
+        { label: 'Avg response', value: okS.length ? avgMs + ' ms' : '—', color: '#0F172A' },
+        { label: 'Fastest', value: okS.length ? Math.min(...okS.map(x => x.ms)) + ' ms' : '—', color: '#0F172A' },
+        { label: 'Slowest', value: okS.length ? Math.max(...okS.map(x => x.ms)) + ' ms' : '—', color: '#0F172A' }
+      ],
+      monCount: smp.length, monEmpty: smp.length === 0,
+      monBars: smp.map(x => ({ h: x.ok ? Math.max(3, x.ms / maxMs * 100) : 100, color: !x.ok ? '#D80027' : x.ms > 1500 ? '#F9AC06' : '#5B5BD6', title: `${new Date(x.t).toLocaleTimeString()} · ${x.ok ? x.ms + ' ms' : 'Down'}` })),
+      monLog: smp.slice(-10).reverse().map(x => ({ time: new Date(x.t).toLocaleTimeString(), status: x.ok ? 'Up' : 'Down', color: x.ok ? '#0E7A48' : '#B00020', ms: x.ms + ' ms' })),
+
+      schUrl: s.schUrl, onSchUrl: e => this.setState({ schUrl: e.target.value }), schFreq: s.schFreq, onSchFreq: e => this.setState({ schFreq: e.target.value }), schType: s.schType, onSchType: e => this.setState({ schType: e.target.value }),
+      freqOpts: FREQS,
+      addSchedule: () => { const u = this.normUrl(s.schUrl); if (!u) return; this.saveSchedules([...s.schedules, { id: uid(), url: u, freq: s.schFreq, scanType: s.schType, active: true, nextRun: Date.now() + (+s.schFreq), lastRun: null, lastScore: null }]); this.setState({ schUrl: '' }); },
+      noSchedules: s.schedules.length === 0,
+      schRows: s.schedules.map(x => ({
+        url: x.url, freq: (FREQS.find(f => f.id === x.freq) || {}).label, type: (TYPE_BY[x.scanType] || {}).name, next: x.active ? rel(x.nextRun, now) : 'Paused', nextColor: x.active ? '#0F172A' : '#94A3B8',
+        last: x.lastScore == null ? '—' : x.lastScore, color: x.lastScore == null ? '#94A3B8' : scoreColor(x.lastScore), toggleLabel: x.active ? 'Pause' : 'Resume',
+        run: () => this.runSchedule(x.id),
+        toggle: () => this.saveSchedules(s.schedules.map(y => y.id === x.id ? { ...y, active: !y.active, nextRun: !y.active ? Date.now() + (+y.freq) : y.nextRun } : y)),
+        remove: () => this.saveSchedules(s.schedules.filter(y => y.id !== x.id))
+      })),
+
+      catalog: CATS.map(c => {
+        const list = TESTS.filter(t => t.cat === c.id), open = s.openCat === c.id;
+        return {
+          label: c.label, std: c.std, count: list.length, liveCount: list.filter(t => t.lh || (t.metric && t.metric.field)).length, open, rot: open ? 180 : 0,
+          toggle: () => this.setState({ openCat: open ? '' : c.id }),
+          tests: list.map(t => ({ name: t.name, ref: t.ref, lhTag: t.lh || (t.metric && t.metric.field) ? 'LIGHTHOUSE' : '', quickTag: t.quick ? 'QUICK' : '', sevLabel: SEV[t.sev].label, sevBg: SEV[t.sev].bg, sevFg: SEV[t.sev].fg }))
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+services:
+  url-tester:
+    build: .
+    image: url-tester:latest
+    container_name: url-tester
+    ports:
+      - "${PORT:-8080}:8080"
+    env_file:
+      - .env
+    restart: unless-stopped
+    shm_size: "1gb"

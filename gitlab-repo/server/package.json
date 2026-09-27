@@ -1,0 +1,16 @@
+{
+  "name": "url-tester-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local test engine for URL Tester: real HTTP, TLS, DNS, link, browser (Playwright + axe) and Lighthouse checks.",
+  "main": "server.js",
+  "scripts": {
+    "setup": "npm install && npx playwright install chromium firefox webkit",
+    "start": "node server.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "axe-core": "^4.10.0",
+    "playwright": "^1.47.0"
+  }
+}

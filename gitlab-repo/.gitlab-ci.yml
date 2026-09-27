@@ -1,0 +1,44 @@
+stages: [test, build, deploy]
+
+variables:
+  IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+
+# Syntax-check the server code on every push
+test:
+  stage: test
+  image: node:20-alpine
+  script:
+    - cd server
+    - for f in *.js; do node --check "$f"; done
+    - node -e "JSON.parse(require('fs').readFileSync('package.json'))"
+    - test -f ../url-tester.html
+
+# Build and push a Docker image to the GitLab Container Registry (main branch)
+build-image:
+  stage: build
+  image: docker:27
+  services: [docker:27-dind]
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - docker build -t "$IMAGE" -t "$CI_REGISTRY_IMAGE:latest" .
+    - docker push "$IMAGE"
+    - docker push "$CI_REGISTRY_IMAGE:latest"
+
+# Manual deploy to the Linux VM over SSH.
+# Set CI/CD variables: SSH_PRIVATE_KEY (File or Variable), DEPLOY_HOST (e.g. 34.123.101.64), DEPLOY_USER (e.g. root)
+deploy-vm:
+  stage: deploy
+  image: alpine:3.20
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+  before_script:
+    - apk add --no-cache openssh-client rsync
+    - eval $(ssh-agent -s)
+    - chmod 600 "$SSH_PRIVATE_KEY" 2>/dev/null && ssh-add "$SSH_PRIVATE_KEY" || echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh && ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+  script:
+    - rsync -az --delete --exclude node_modules url-tester.html server/ "$DEPLOY_USER@$DEPLOY_HOST:/tmp/url-tester-release/"
+    - ssh "$DEPLOY_USER@$DEPLOY_HOST" 'set -e; cp /tmp/url-tester-release/url-tester.html /opt/url-tester/; rsync -a /tmp/url-tester-release/ /opt/url-tester/server/ --exclude url-tester.html; cd /opt/url-tester/server && sudo -u urltester -H npm install --omit=dev; chown -R urltester:urltester /opt/url-tester; systemctl restart url-tester; sleep 2; curl -fs http://localhost:8080/api/health'
